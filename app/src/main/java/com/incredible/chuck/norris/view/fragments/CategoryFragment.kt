@@ -53,6 +53,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
 
         root.categories_swipe_layout.setOnRefreshListener {
             viewModel.updateCategories()
+            root.rv_category_fragment.scheduleLayoutAnimation()
             viewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
                 when (it) {
                     true -> root.categories_swipe_layout.isRefreshing = true

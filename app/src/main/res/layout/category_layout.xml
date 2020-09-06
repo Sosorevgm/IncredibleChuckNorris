@@ -5,6 +5,7 @@
     android:id="@+id/categories_swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/silver"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -24,6 +25,8 @@
             android:id="@+id/rv_category_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layoutAnimation="@anim/layout_animation_from_bottom"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
