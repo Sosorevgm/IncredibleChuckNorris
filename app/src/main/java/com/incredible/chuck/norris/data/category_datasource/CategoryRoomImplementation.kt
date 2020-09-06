@@ -1,6 +1,7 @@
-package com.incredible.chuck.norris.model.datasource
+package com.incredible.chuck.norris.data.category_datasource
 
-class CategoryRoomImplementation : DataSource<List<String>> {
+class CategoryRoomImplementation :
+    CategoryDataSource<List<String>> {
     override suspend fun getData() = listOf(
         "animal",
         "career",

@@ -1,13 +1,14 @@
-package com.incredible.chuck.norris.model.datasource
+package com.incredible.chuck.norris.data.category_datasource
 
-import com.incredible.chuck.norris.model.api.ChuckNorrisApi
+import com.incredible.chuck.norris.data.api.ChuckNorrisApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CategoryRetrofitImplementation : DataSource<List<String>> {
+class CategoryRetrofitImplementation :
+    CategoryDataSource<List<String>> {
 
     companion object {
-        const val BASE_URL = "https://api.chucknorris.io/jokes/categories/"
+        private const val BASE_URL = "https://api.chucknorris.io/jokes/categories/"
     }
 
     override suspend fun getData(): List<String> {

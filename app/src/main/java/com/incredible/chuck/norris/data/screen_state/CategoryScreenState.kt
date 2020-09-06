@@ -1,4 +1,4 @@
-package com.incredible.chuck.norris.model
+package com.incredible.chuck.norris.data.screen_state
 
 sealed class CategoryScreenState {
     data class Success(val categories: List<String>) : CategoryScreenState()

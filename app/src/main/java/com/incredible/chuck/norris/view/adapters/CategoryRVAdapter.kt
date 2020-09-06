@@ -31,7 +31,9 @@ class CategoryRVAdapter(
 
         fun bind(category: String) {
             view.tv_category_text.text = category
-            listener.onFactClick(category)
+            view.cv_category_root.setOnClickListener {
+                listener.onFactClick(category)
+            }
         }
     }
 }
