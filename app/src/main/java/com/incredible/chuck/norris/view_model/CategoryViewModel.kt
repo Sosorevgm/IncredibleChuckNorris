@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 
 class CategoryViewModel : BaseViewModel() {
 
-    private lateinit var source: CategoryDataSource<List<String>>
+    private var source: CategoryDataSource<List<String>>
 
     val screenState: MutableLiveData<CategoryScreenState> by lazy {
         MutableLiveData<CategoryScreenState>()
@@ -20,7 +20,7 @@ class CategoryViewModel : BaseViewModel() {
         MutableLiveData<Boolean>()
     }
 
-    fun fetchData() {
+    init {
         screenState.value = CategoryScreenState.Loading
 
         source =

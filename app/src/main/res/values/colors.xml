@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#FFFFFF</color>
     <color name="silver">#C0C0C0</color>
+    <color name="background_color">#dddddd</color>
 </resources>
