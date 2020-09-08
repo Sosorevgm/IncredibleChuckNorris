@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.hide
@@ -40,6 +41,7 @@ class FactFragment : Fragment() {
             when (it) {
                 is FactScreenState.Loading -> {
                     root.shimmer_fact_layout.show()
+                    root.fact_main_layout.hide()
                 }
                 is FactScreenState.Success -> {
                     root.shimmer_fact_layout.hide()
@@ -51,6 +53,15 @@ class FactFragment : Fragment() {
                 is FactScreenState.Error -> {
                     root.shimmer_fact_layout.show()
                     root.fact_main_layout.hide()
+                    root.fact_swipe_layout.isRefreshing = false
+                    val snackBar = Snackbar.make(
+                        requireView(), "Oops, connection problems",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.setAction("Try again!") {
+                        viewModel.snackBarUpdateFact(category!!)
+                    }
+                    snackBar.show()
                 }
             }
         })

@@ -16,10 +16,6 @@ class CategoryViewModel : BaseViewModel() {
         MutableLiveData<CategoryScreenState>()
     }
 
-    val isProgressbarActive: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
     init {
         screenState.value = CategoryScreenState.Loading
 
@@ -34,7 +30,7 @@ class CategoryViewModel : BaseViewModel() {
     }
 
     fun updateCategories() {
-        isProgressbarActive.value = true
+        screenState.value = CategoryScreenState.Loading
 
         coroutineScope.launch {
             val categories = withContext(Dispatchers.IO) {
@@ -43,12 +39,10 @@ class CategoryViewModel : BaseViewModel() {
             if (categories.isNotEmpty()) {
                 screenState.value = CategoryScreenState.Success(categories)
             }
-            isProgressbarActive.value = false
         }
-
     }
 
     override fun handleError(error: Throwable) {
-        screenState.value = error.localizedMessage?.let { CategoryScreenState.Error(it) }
+        screenState.value = CategoryScreenState.Error
     }
 }
