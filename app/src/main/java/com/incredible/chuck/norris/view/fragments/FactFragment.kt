@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.hide
 import com.incredible.chuck.norris.extensions.show
 import com.incredible.chuck.norris.utils.getDateString
+import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
 import com.incredible.chuck.norris.view_model.FactViewModel
 import kotlinx.android.synthetic.main.fact_layout.view.*
 import kotlinx.android.synthetic.main.fragment_fact.view.*
@@ -54,10 +54,7 @@ class FactFragment : Fragment() {
                     root.shimmer_fact_layout.show()
                     root.fact_main_layout.hide()
                     root.fact_swipe_layout.isRefreshing = false
-                    val snackBar = Snackbar.make(
-                        requireView(), "Oops, connection problems",
-                        Snackbar.LENGTH_LONG
-                    )
+                    val snackBar = getSnackBarConnectionProblems(requireView())
                     snackBar.setAction("Try again!") {
                         viewModel.snackBarUpdateFact(category!!)
                     }
