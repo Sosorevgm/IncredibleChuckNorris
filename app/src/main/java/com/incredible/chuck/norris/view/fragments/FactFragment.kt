@@ -39,17 +39,18 @@ class FactFragment : Fragment() {
         viewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
             when (it) {
                 is FactScreenState.Loading -> {
-                    root.pb_fact_fragment.show()
+                    root.shimmer_fact_layout.show()
                 }
                 is FactScreenState.Success -> {
-                    root.pb_fact_fragment.hide()
+                    root.shimmer_fact_layout.hide()
+                    root.fact_main_layout.show()
                     Glide.with(this).load(it.fact.icon_url).into(root.iv_fact_icon)
                     root.tv_fact_text.text = it.fact.fact
                     root.tv_fact_date.text = getDateString(it.fact.date)
                 }
                 is FactScreenState.Error -> {
-                    root.pb_fact_fragment.hide()
-                    root.tv_fact_error.text = it.error
+                    root.shimmer_fact_layout.show()
+                    root.fact_main_layout.hide()
                 }
             }
         })

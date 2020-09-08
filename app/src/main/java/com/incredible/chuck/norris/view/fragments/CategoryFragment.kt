@@ -30,7 +30,6 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_category, container, false)
-        viewModel.fetchData()
         viewModel.screenState.observe(viewLifecycleOwner,
             Observer<CategoryScreenState> {
                 when (it) {
