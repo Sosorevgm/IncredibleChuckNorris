@@ -2,15 +2,15 @@ package com.incredible.chuck.norris.view_model
 
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.category_datasource.CategoryDataSource
-import com.incredible.chuck.norris.data.category_datasource.CategoryRetrofitImplementation
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.core.inject
 
 class CategoryViewModel : BaseViewModel() {
 
-    private var source: CategoryDataSource<List<String>>
+    private val source: CategoryDataSource<List<String>> by inject()
 
     val screenState: MutableLiveData<CategoryScreenState> by lazy {
         MutableLiveData<CategoryScreenState>()
@@ -22,9 +22,6 @@ class CategoryViewModel : BaseViewModel() {
 
     init {
         screenState.value = CategoryScreenState.Loading
-
-        source =
-            CategoryRetrofitImplementation()
 
         coroutineScope.launch {
             val categories = withContext(Dispatchers.IO) {
@@ -38,8 +35,6 @@ class CategoryViewModel : BaseViewModel() {
 
     fun updateCategories() {
         isProgressbarActive.value = true
-
-        source = CategoryRetrofitImplementation()
 
         coroutineScope.launch {
             val categories = withContext(Dispatchers.IO) {
