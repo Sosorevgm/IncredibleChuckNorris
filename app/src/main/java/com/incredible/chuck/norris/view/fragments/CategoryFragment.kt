@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import com.incredible.chuck.norris.extensions.hide
@@ -34,31 +35,37 @@ class CategoryFragment : Fragment(), CategoryClickListener {
             Observer<CategoryScreenState> {
                 when (it) {
                     is CategoryScreenState.Loading -> {
+                        root.rv_category_fragment.hide()
+                        root.iv_category_error.hide()
                         root.pb_category_fragment.show()
                     }
                     is CategoryScreenState.Success -> {
                         root.pb_category_fragment.hide()
+                        root.iv_category_error.hide()
                         root.rv_category_fragment.show()
                         val adapter = CategoryRVAdapter(it.categories, this)
                         root.rv_category_fragment.adapter = adapter
                     }
                     is CategoryScreenState.Error -> {
                         root.pb_category_fragment.hide()
-                        root.tv_error_category_fragment.show()
-                        root.tv_error_category_fragment.text = it.error
+                        root.rv_category_fragment.hide()
+                        root.iv_category_error.show()
+                        val snackBar = Snackbar.make(
+                            requireView(),
+                            "Oops, connection problems",
+                            Snackbar.LENGTH_LONG
+                        )
+                        snackBar.setAction("Try again!") {
+                            viewModel.updateCategories()
+                        }
+                        snackBar.show()
                     }
                 }
             })
 
         root.categories_swipe_layout.setOnRefreshListener {
+            root.categories_swipe_layout.isRefreshing = false
             viewModel.updateCategories()
-            root.rv_category_fragment.scheduleLayoutAnimation()
-            viewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
-                when (it) {
-                    true -> root.categories_swipe_layout.isRefreshing = true
-                    false -> root.categories_swipe_layout.isRefreshing = false
-                }
-            })
         }
         return root
     }

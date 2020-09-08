@@ -46,6 +46,16 @@ class FactViewModel : BaseViewModel() {
         }
     }
 
+    fun snackBarUpdateFact(category: String) {
+        coroutineScope.launch {
+            val deferredFact = async {
+                source.getData(category)
+            }
+            val fact = deferredFact.await()
+            screenState.value = FactScreenState.Success(fact)
+        }
+    }
+
     override fun handleError(error: Throwable) {
         screenState.value = error.message?.let { FactScreenState.Error(it) }
     }
