@@ -2,15 +2,15 @@ package com.incredible.chuck.norris.view_model
 
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.fact_datasource.FactDataSource
-import com.incredible.chuck.norris.data.fact_datasource.FactRetrofitImplementation
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.koin.core.inject
 
 class FactViewModel : BaseViewModel() {
 
-    private lateinit var source: FactDataSource<FactModel>
+    private val source: FactDataSource<FactModel> by inject()
 
     val screenState: MutableLiveData<FactScreenState> by lazy {
         MutableLiveData<FactScreenState>()
@@ -23,8 +23,6 @@ class FactViewModel : BaseViewModel() {
     fun fetchData(category: String) {
         screenState.value = FactScreenState.Loading
 
-        source = FactRetrofitImplementation()
-
         coroutineScope.launch {
             val deferredFact = async {
                 source.getData(category)
@@ -35,10 +33,7 @@ class FactViewModel : BaseViewModel() {
     }
 
     fun updateFact(category: String) {
-
         isProgressbarActive.value = true
-
-        source = FactRetrofitImplementation()
 
         coroutineScope.launch {
 
