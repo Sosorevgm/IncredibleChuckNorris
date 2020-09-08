@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import com.incredible.chuck.norris.extensions.hide
 import com.incredible.chuck.norris.extensions.show
+import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
@@ -50,13 +50,10 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                         root.pb_category_fragment.hide()
                         root.rv_category_fragment.hide()
                         root.iv_category_error.show()
-                        val snackBar = Snackbar.make(
-                            requireView(),
-                            "Oops, connection problems",
-                            Snackbar.LENGTH_LONG
-                        )
+                        val snackBar = getSnackBarConnectionProblems(requireView())
                         snackBar.setAction("Try again!") {
                             viewModel.updateCategories()
+                            root.rv_category_fragment.scheduleLayoutAnimation()
                         }
                         snackBar.show()
                     }
@@ -66,6 +63,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         root.categories_swipe_layout.setOnRefreshListener {
             root.categories_swipe_layout.isRefreshing = false
             viewModel.updateCategories()
+            root.rv_category_fragment.scheduleLayoutAnimation()
         }
         return root
     }
