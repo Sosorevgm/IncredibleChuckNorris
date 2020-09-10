@@ -17,6 +17,7 @@ import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.category_layout.view.*
 import org.koin.android.ext.android.inject
+import java.lang.RuntimeException
 
 class CategoryFragment : Fragment(), CategoryClickListener {
 
