@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.incredible.chuck.norris.R
+import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
+import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.hide
 import com.incredible.chuck.norris.extensions.show
@@ -25,6 +27,8 @@ class FactFragment : Fragment() {
     }
 
     private val viewModel: FactViewModel by inject()
+
+    private val imageLoader: ImageLoader by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +50,7 @@ class FactFragment : Fragment() {
                 is FactScreenState.Success -> {
                     root.shimmer_fact_layout.hide()
                     root.fact_main_layout.show()
-                    Glide.with(this).load(it.fact.icon_url).into(root.iv_fact_icon)
+                    imageLoader.loadImage(it.fact.icon_url, root.iv_fact_icon)
                     root.tv_fact_text.text = it.fact.fact
                     root.tv_fact_date.text = getDateString(it.fact.date)
                 }
