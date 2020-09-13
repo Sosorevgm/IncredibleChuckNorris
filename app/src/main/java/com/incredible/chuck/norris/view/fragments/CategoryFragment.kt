@@ -13,11 +13,11 @@ import com.incredible.chuck.norris.extensions.hide
 import com.incredible.chuck.norris.extensions.show
 import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
+import com.incredible.chuck.norris.view.adapters.CategoryItemDecorator
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.category_layout.view.*
 import org.koin.android.ext.android.inject
-import java.lang.RuntimeException
 
 class CategoryFragment : Fragment(), CategoryClickListener {
 
@@ -26,12 +26,16 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     private val viewModel: CategoryViewModel by inject()
+    private val decorator: CategoryItemDecorator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_category, container, false)
+
+        root.rv_category_fragment.addItemDecoration(decorator)
+
         viewModel.screenState.observe(viewLifecycleOwner,
             Observer<CategoryScreenState> {
                 when (it) {
