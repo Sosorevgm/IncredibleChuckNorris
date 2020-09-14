@@ -30,7 +30,7 @@ class CategoryRVAdapter(
     ) : RecyclerView.ViewHolder(view) {
 
         fun bind(category: String) {
-            view.tv_category_text.text = category
+            view.tv_category_text.text = category.capitalize()
             view.cv_category_root.setOnClickListener {
                 listener.onFactClick(category)
             }
