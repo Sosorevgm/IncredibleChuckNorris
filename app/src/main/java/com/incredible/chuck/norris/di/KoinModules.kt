@@ -7,7 +7,6 @@ import com.incredible.chuck.norris.data.fact_datasource.FactRetrofitImplementati
 import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.models.FactModel
-import com.incredible.chuck.norris.view.adapters.CategoryItemDecorator
 import com.incredible.chuck.norris.view_model.CategoryViewModel
 import com.incredible.chuck.norris.view_model.FactViewModel
 import org.koin.android.ext.koin.androidContext
@@ -21,10 +20,6 @@ val application = module {
 
     factory<FactDataSource<FactModel>> {
         FactRetrofitImplementation()
-    }
-
-    single {
-        CategoryItemDecorator()
     }
 
     single<ImageLoader> {

@@ -27,69 +27,100 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/background_color"
+                    android:layout_marginTop="28dp"
+                    android:background="@drawable/shimmer_view_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/shimmer_tv_fact_text"
-                    android:layout_width="260dp"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/shimmer_tv_fact_category"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/background_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="28dp"
+                    android:background="@drawable/shimmer_view_background"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/shimmer_tv_fact_text_one"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_view_background"
+                    app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text_two" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/shimmer_tv_fact_text_two"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_view_background"
+                    app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_category" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/shimmer_tv_fact_date"
                     android:layout_width="28dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:background="@color/background_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/shimmer_view_background"
+                    app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text_one" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fact_main_layout"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_fact_icon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="28dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_fact_text"
-                android:layout_width="260dp"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_fact_category"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_fact_icon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="barry chuck once said: paul chuckle is a dick but barry chuckle didnt realise that paul was Chuck Norris in desguise then, a week later paul killed techno viking by mistake and Chuck Norris destroyed royal mail, then killed the mexicans who \wanted a fight\. the moral of the story is joe morris likes Chuck Norris and barry chuckle, because sometimes pauls just not enough!" />
+                tools:text="Category" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_fact_text"
+                style="@style/TextStyle"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toEndOf="@+id/iv_fact_icon"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fact_category"
+                tools:text="barry chuck once said: paul chuckle is a dick but barry chuckle didn't realise that paul was Chuck Norris in disguise then, a week later paul killed techno viking by mistake and Chuck Norris destroyed royal mail, then killed the mexicans who wanted a fight the moral of the story is joe morris likes Chuck Norris and barry chuckle, because sometimes Paul's just not enough!" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_fact_date"
+                style="@style/DateTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/iv_fact_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_fact_text"
                 tools:text="Sep 23" />
 

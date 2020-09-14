@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
+import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
-import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.hide
@@ -27,7 +27,6 @@ class FactFragment : Fragment() {
     }
 
     private val viewModel: FactViewModel by inject()
-
     private val imageLoader: ImageLoader by inject()
 
     override fun onCreateView(
@@ -38,7 +37,7 @@ class FactFragment : Fragment() {
         val category = arguments?.getString(CATEGORY)
 
         category?.let {
-            root.tv_fragment_category_name.text = category
+            root.tv_fact_category.text = category.capitalize()
             viewModel.fetchData(it)
         }
         viewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
@@ -50,7 +49,18 @@ class FactFragment : Fragment() {
                 is FactScreenState.Success -> {
                     root.shimmer_fact_layout.hide()
                     root.fact_main_layout.show()
-                    imageLoader.loadImage(it.fact.icon_url, root.iv_fact_icon)
+
+                    val chuckIcon = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.chuck_picture
+                    )
+
+                    if (chuckIcon != null) {
+                        imageLoader.loadImageFromResources(chuckIcon, root.iv_fact_icon)
+                    } else {
+                        imageLoader.loadImageFromUrl(it.fact.icon_url, root.iv_fact_icon)
+                    }
+
                     root.tv_fact_text.text = it.fact.fact
                     root.tv_fact_date.text = getDateString(it.fact.date)
                 }
@@ -66,6 +76,10 @@ class FactFragment : Fragment() {
                 }
             }
         })
+
+        root.iv_fact_fragment_arrow_back.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         root.fact_swipe_layout.setOnRefreshListener {
             viewModel.updateFact(category!!)
