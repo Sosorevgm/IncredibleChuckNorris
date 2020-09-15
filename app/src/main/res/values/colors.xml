@@ -9,4 +9,6 @@
     <color name="background_color">#dddddd</color>
     <color name="text_color">#1C1F26</color>
     <color name="date_text_color">#B1B1B1</color>
+    <color name="snack_bar_color">#4F4F4F</color>
+    <color name="snack_bar_action_text_color">#0BBDAC</color>
 </resources>

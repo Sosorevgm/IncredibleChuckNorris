@@ -32,13 +32,14 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_category_error"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
+            android:layout_width="128dp"
+            android:layout_height="136dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sad_chuck_picture" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
