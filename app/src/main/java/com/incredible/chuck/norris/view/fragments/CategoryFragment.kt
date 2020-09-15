@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -38,11 +39,13 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                     is CategoryScreenState.Loading -> {
                         root.rv_category_fragment.hide()
                         root.iv_category_error.hide()
+                        stopAnimation(root.iv_category_error)
                         root.pb_category_fragment.show()
                     }
                     is CategoryScreenState.Success -> {
                         root.pb_category_fragment.hide()
                         root.iv_category_error.hide()
+                        stopAnimation(root.iv_category_error)
                         root.rv_category_fragment.show()
                         val adapter = CategoryRVAdapter(it.categories, this)
                         root.rv_category_fragment.adapter = adapter
@@ -51,8 +54,10 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                         root.pb_category_fragment.hide()
                         root.rv_category_fragment.hide()
                         root.iv_category_error.show()
-                        val snackBar = getSnackBarConnectionProblems(requireView())
-                        snackBar.setAction("Try again!") {
+                        startAnimation(root.iv_category_error)
+                        val snackBar =
+                            getSnackBarConnectionProblems(requireView(), requireContext())
+                        snackBar.setAction("Try again") {
                             viewModel.updateCategories()
                             root.rv_category_fragment.scheduleLayoutAnimation()
                         }
@@ -67,6 +72,15 @@ class CategoryFragment : Fragment(), CategoryClickListener {
             root.rv_category_fragment.scheduleLayoutAnimation()
         }
         return root
+    }
+
+    private fun startAnimation(view: View) {
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.chuck_rotate)
+        view.iv_category_error.startAnimation(animation)
+    }
+
+    private fun stopAnimation(view: View) {
+        view.iv_category_error.animation = null
     }
 
     override fun onFactClick(category: String) {

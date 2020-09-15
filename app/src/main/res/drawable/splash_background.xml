@@ -4,8 +4,10 @@
     <item android:drawable="@color/white" />
 
     <item
+        android:width="400dp"
+        android:height="400dp"
         android:gravity="center">
-        <bitmap android:src="@mipmap/chuck_main_icon_foreground" />
+        <bitmap android:src="@mipmap/chuck_splash_picture_foreground" />
     </item>
 
 </layer-list>

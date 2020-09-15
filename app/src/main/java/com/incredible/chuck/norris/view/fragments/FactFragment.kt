@@ -68,8 +68,8 @@ class FactFragment : Fragment() {
                     root.shimmer_fact_layout.show()
                     root.fact_main_layout.hide()
                     root.fact_swipe_layout.isRefreshing = false
-                    val snackBar = getSnackBarConnectionProblems(requireView())
-                    snackBar.setAction("Try again!") {
+                    val snackBar = getSnackBarConnectionProblems(requireView(), requireContext())
+                    snackBar.setAction("Try again") {
                         viewModel.snackBarUpdateFact(category!!)
                     }
                     snackBar.show()
