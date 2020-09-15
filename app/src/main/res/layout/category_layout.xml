@@ -34,12 +34,12 @@
             android:id="@+id/iv_category_error"
             android:layout_width="128dp"
             android:layout_height="136dp"
+            app:srcCompat="@drawable/sad_chuck_picture"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sad_chuck_picture" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
