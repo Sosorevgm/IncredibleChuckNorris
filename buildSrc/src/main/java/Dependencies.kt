@@ -1,5 +1,4 @@
 object Versions {
-
     const val core = "1.3.0"
     const val std_lib = "1.3.72"
 
@@ -106,5 +105,3 @@ object TestImpl {
     const val test_ext_JUnit = "androidx.test.ext:junit:${Versions.text_ext_JUnit}"
     const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
 }
-
-

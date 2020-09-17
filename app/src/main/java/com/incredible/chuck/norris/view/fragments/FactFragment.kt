@@ -1,5 +1,6 @@
 package com.incredible.chuck.norris.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,7 +53,7 @@ class FactFragment : Fragment() {
 
                     val chuckIcon = ContextCompat.getDrawable(
                         requireContext(),
-                        R.drawable.chuck_picture
+                        R.drawable.chuck_main_icon
                     )
 
                     if (chuckIcon != null) {
@@ -81,6 +82,13 @@ class FactFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        root.iv_fact_fragment_share.setOnClickListener {
+            val fact = root.tv_fact_text.text.toString()
+            if (fact.isNotEmpty()){
+                shareFact(fact)
+            }
+        }
+
         root.fact_swipe_layout.setOnRefreshListener {
             viewModel.updateFact(category!!)
             viewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
@@ -91,5 +99,16 @@ class FactFragment : Fragment() {
             })
         }
         return root
+    }
+
+    private fun shareFact(fact: String) {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, fact)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }

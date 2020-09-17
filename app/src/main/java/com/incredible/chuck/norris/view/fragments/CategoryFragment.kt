@@ -32,6 +32,8 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_category, container, false)
+        val adapter = CategoryRVAdapter(listOf(), this)
+        root.rv_category_fragment.adapter = adapter
 
         viewModel.screenState.observe(viewLifecycleOwner,
             Observer<CategoryScreenState> {
@@ -47,8 +49,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                         root.iv_category_error.hide()
                         stopAnimation(root.iv_category_error)
                         root.rv_category_fragment.show()
-                        val adapter = CategoryRVAdapter(it.categories, this)
-                        root.rv_category_fragment.adapter = adapter
+                        adapter.updateCategoryList(it.categories)
                     }
                     is CategoryScreenState.Error -> {
                         root.pb_category_fragment.hide()

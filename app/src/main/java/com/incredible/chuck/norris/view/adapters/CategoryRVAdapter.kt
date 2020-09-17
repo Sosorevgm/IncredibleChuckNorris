@@ -3,6 +3,7 @@ package com.incredible.chuck.norris.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.incredible.chuck.norris.R
 import kotlinx.android.synthetic.main.category_card_view.view.*
@@ -22,6 +23,12 @@ class CategoryRVAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(categoryList[position])
+    }
+
+    fun updateCategoryList(newCategoryList: List<String>) {
+        val difResult = DiffUtil.calculateDiff(CategoryDiffCallback(categoryList, newCategoryList))
+        categoryList = newCategoryList
+        difResult.dispatchUpdatesTo(this)
     }
 
     inner class ViewHolder(
