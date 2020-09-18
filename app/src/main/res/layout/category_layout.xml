@@ -34,7 +34,7 @@
             android:id="@+id/iv_category_error"
             android:layout_width="128dp"
             android:layout_height="136dp"
-            app:srcCompat="@drawable/sad_chuck_picture"
+            app:srcCompat="@drawable/sad_chuck_icon"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -84,7 +84,7 @@ class FactFragment : Fragment() {
 
         root.iv_fact_fragment_share.setOnClickListener {
             val fact = root.tv_fact_text.text.toString()
-            if (fact.isNotEmpty()){
+            if (fact.isNotEmpty()) {
                 shareFact(fact)
             }
         }
@@ -104,10 +104,9 @@ class FactFragment : Fragment() {
     private fun shareFact(fact: String) {
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, fact)
+            putExtra(Intent.EXTRA_TEXT, fact + getString(R.string.google_play_link))
             type = "text/plain"
         }
-
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
     }
