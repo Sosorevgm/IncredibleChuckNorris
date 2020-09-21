@@ -2,6 +2,7 @@ package com.incredible.chuck.norris.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import com.incredible.chuck.norris.R
 
 class MainActivity : AppCompatActivity() {

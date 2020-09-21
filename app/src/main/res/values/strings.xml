@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ICN</string>
     <string name="categories">Categories</string>
+    <string name="connection_problems">Oops, connection problems</string>
+    <string name="try_again">Try again</string>
     <string name="google_play_link">\n\nLearn more about Chuck Norris. Download the app now!\nhttp://play.google.com/store/apps/details?id=com.incredible.chuck.norris</string>
 </resources>

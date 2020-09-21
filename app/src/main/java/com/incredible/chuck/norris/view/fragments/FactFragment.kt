@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
+import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.hide
 import com.incredible.chuck.norris.extensions.show
@@ -20,6 +21,7 @@ import com.incredible.chuck.norris.view_model.FactViewModel
 import kotlinx.android.synthetic.main.fact_layout.view.*
 import kotlinx.android.synthetic.main.fragment_fact.view.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FactFragment : Fragment() {
 
@@ -27,7 +29,7 @@ class FactFragment : Fragment() {
         const val CATEGORY = "category"
     }
 
-    private val viewModel: FactViewModel by inject()
+    private val factViewModel: FactViewModel by viewModel()
     private val imageLoader: ImageLoader by inject()
 
     override fun onCreateView(
@@ -37,48 +39,33 @@ class FactFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_fact, container, false)
         val category = arguments?.getString(CATEGORY)
 
-        category?.let {
-            root.tv_fact_category.text = category.capitalize()
-            viewModel.fetchData(it)
+        val currentFact = factViewModel.currentFact
+
+        if (currentFact != null) {
+            showSuccessState(root, category!!, currentFact)
+        } else {
+            category?.let {
+                root.tv_fact_category.text = category
+                factViewModel.fetchData(it)
+            }
         }
-        viewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
+
+        factViewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
             when (it) {
                 is FactScreenState.Loading -> {
-                    root.shimmer_fact_layout.show()
-                    root.fact_main_layout.hide()
+                    showLoadingState(root)
                 }
                 is FactScreenState.Success -> {
-                    root.shimmer_fact_layout.hide()
-                    root.fact_main_layout.show()
-
-                    val chuckIcon = ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.chuck_main_icon
-                    )
-
-                    if (chuckIcon != null) {
-                        imageLoader.loadImageFromResources(chuckIcon, root.iv_fact_icon)
-                    } else {
-                        imageLoader.loadImageFromUrl(it.fact.icon_url, root.iv_fact_icon)
-                    }
-
-                    root.tv_fact_text.text = it.fact.fact
-                    root.tv_fact_date.text = getDateString(it.fact.date)
+                    showSuccessState(root, category!!, it.fact)
                 }
                 is FactScreenState.Error -> {
-                    root.shimmer_fact_layout.show()
-                    root.fact_main_layout.hide()
-                    root.fact_swipe_layout.isRefreshing = false
-                    val snackBar = getSnackBarConnectionProblems(requireView(), requireContext())
-                    snackBar.setAction("Try again") {
-                        viewModel.snackBarUpdateFact(category!!)
-                    }
-                    snackBar.show()
+                    showErrorState(root, category!!)
                 }
             }
         })
 
         root.iv_fact_fragment_arrow_back.setOnClickListener {
+            factViewModel.currentFact = null
             findNavController().popBackStack()
         }
 
@@ -90,8 +77,8 @@ class FactFragment : Fragment() {
         }
 
         root.fact_swipe_layout.setOnRefreshListener {
-            viewModel.updateFact(category!!)
-            viewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
+            factViewModel.updateFact(category!!)
+            factViewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
                 when (it) {
                     true -> root.fact_swipe_layout.isRefreshing = true
                     false -> root.fact_swipe_layout.isRefreshing = false
@@ -99,6 +86,51 @@ class FactFragment : Fragment() {
             })
         }
         return root
+    }
+
+    private fun showLoadingState(view: View) {
+        view.shimmer_fact_layout.show()
+        view.fact_main_layout.hide()
+        view.iv_fact_fragment_share.isClickable = false
+    }
+
+    private fun showSuccessState(view: View, category: String, fact: FactModel) {
+        view.shimmer_fact_layout.hide()
+        view.fact_main_layout.show()
+        view.iv_fact_fragment_share.isClickable = true
+
+        val chuckIcon = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.chuck_main_icon
+        )
+
+        if (chuckIcon != null) {
+            imageLoader.loadImageFromResources(chuckIcon, view.iv_fact_icon)
+        } else {
+            imageLoader.loadImageFromUrl(fact.icon_url, view.iv_fact_icon)
+        }
+
+        view.tv_fact_category.text = category.capitalize()
+        view.tv_fact_text.text = fact.fact
+        view.tv_fact_date.text = getDateString(fact.date)
+        factViewModel.currentFact = fact
+    }
+
+    private fun showErrorState(view: View, category: String) {
+        view.shimmer_fact_layout.show()
+        view.fact_main_layout.hide()
+        view.iv_fact_fragment_share.isClickable = false
+        view.fact_swipe_layout.isRefreshing = false
+        factViewModel.currentFact = null
+        val snackBar = getSnackBarConnectionProblems(
+            requireView(),
+            getString(R.string.connection_problems),
+            requireContext()
+        )
+        snackBar.setAction(getString(R.string.try_again)) {
+            factViewModel.snackBarUpdateFact(category)
+        }
+        snackBar.show()
     }
 
     private fun shareFact(fact: String) {

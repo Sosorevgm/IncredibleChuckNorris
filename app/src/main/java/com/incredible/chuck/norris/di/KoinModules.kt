@@ -29,10 +29,10 @@ val application = module {
 
 val viewModelDependency = module {
     viewModel {
-        CategoryViewModel()
+        CategoryViewModel(get())
     }
 
     viewModel {
-        FactViewModel()
+        FactViewModel(get())
     }
 }

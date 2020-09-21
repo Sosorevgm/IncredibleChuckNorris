@@ -8,9 +8,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.inject
 
-class CategoryViewModel : BaseViewModel() {
-
-    private val source: CategoryDataSource<List<String>> by inject()
+class CategoryViewModel(
+    private val source: CategoryDataSource<List<String>>
+) : BaseViewModel() {
 
     val screenState: MutableLiveData<CategoryScreenState> by lazy {
         MutableLiveData<CategoryScreenState>()
