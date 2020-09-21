@@ -17,7 +17,7 @@ import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.category_layout.view.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : Fragment(), CategoryClickListener {
 
@@ -25,7 +25,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         const val CATEGORY = "category"
     }
 
-    private val viewModel: CategoryViewModel by inject()
+    private val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,44 +35,60 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         val adapter = CategoryRVAdapter(listOf(), this)
         root.rv_category_fragment.adapter = adapter
 
-        viewModel.screenState.observe(viewLifecycleOwner,
+        categoryViewModel.screenState.observe(viewLifecycleOwner,
             Observer<CategoryScreenState> {
                 when (it) {
                     is CategoryScreenState.Loading -> {
-                        root.rv_category_fragment.hide()
-                        root.iv_category_error.hide()
-                        stopAnimation(root.iv_category_error)
-                        root.pb_category_fragment.show()
+                        showLoadingState(root)
                     }
                     is CategoryScreenState.Success -> {
-                        root.pb_category_fragment.hide()
-                        root.iv_category_error.hide()
-                        stopAnimation(root.iv_category_error)
-                        root.rv_category_fragment.show()
-                        adapter.updateCategoryList(it.categories)
+                        showSuccessState(root, adapter, it.categories)
                     }
                     is CategoryScreenState.Error -> {
-                        root.pb_category_fragment.hide()
-                        root.rv_category_fragment.hide()
-                        root.iv_category_error.show()
-                        startAnimation(root.iv_category_error)
-                        val snackBar =
-                            getSnackBarConnectionProblems(requireView(), requireContext())
-                        snackBar.setAction("Try again") {
-                            viewModel.updateCategories()
-                            root.rv_category_fragment.scheduleLayoutAnimation()
-                        }
-                        snackBar.show()
+                        showErrorState(root)
                     }
                 }
             })
 
         root.categories_swipe_layout.setOnRefreshListener {
             root.categories_swipe_layout.isRefreshing = false
-            viewModel.updateCategories()
+            categoryViewModel.updateCategories()
             root.rv_category_fragment.scheduleLayoutAnimation()
         }
         return root
+    }
+
+    private fun showLoadingState(view: View) {
+        view.rv_category_fragment.hide()
+        view.iv_category_error.hide()
+        stopAnimation(view.iv_category_error)
+        view.pb_category_fragment.show()
+    }
+
+    private fun showSuccessState(view: View, adapter: CategoryRVAdapter, categories: List<String>) {
+        view.pb_category_fragment.hide()
+        view.iv_category_error.hide()
+        stopAnimation(view.iv_category_error)
+        view.rv_category_fragment.show()
+        adapter.updateCategoryList(categories)
+    }
+
+    private fun showErrorState(view: View) {
+        view.pb_category_fragment.hide()
+        view.rv_category_fragment.hide()
+        view.iv_category_error.show()
+        startAnimation(view.iv_category_error)
+        val snackBar =
+            getSnackBarConnectionProblems(
+                requireView(),
+                getString(R.string.connection_problems),
+                requireContext()
+            )
+        snackBar.setAction(getString(R.string.try_again)) {
+            categoryViewModel.updateCategories()
+            view.rv_category_fragment.scheduleLayoutAnimation()
+        }
+        snackBar.show()
     }
 
     private fun startAnimation(view: View) {

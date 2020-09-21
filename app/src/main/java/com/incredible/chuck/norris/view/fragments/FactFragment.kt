@@ -2,7 +2,6 @@ package com.incredible.chuck.norris.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,21 +21,16 @@ import com.incredible.chuck.norris.view_model.FactViewModel
 import kotlinx.android.synthetic.main.fact_layout.view.*
 import kotlinx.android.synthetic.main.fragment_fact.view.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FactFragment : Fragment() {
 
     companion object {
         const val CATEGORY = "category"
-        const val CURRENT_FACT = "current_fact"
     }
 
-    private val viewModel: FactViewModel by inject()
+    private val factViewModel: FactViewModel by viewModel()
     private val imageLoader: ImageLoader by inject()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,19 +39,18 @@ class FactFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_fact, container, false)
         val category = arguments?.getString(CATEGORY)
 
-        val currentFact: FactModel? = savedInstanceState?.getParcelable(CURRENT_FACT)
-        Log.e("myLogs", "cr fact = $currentFact")
+        val currentFact = factViewModel.currentFact
 
         if (currentFact != null) {
             showSuccessState(root, category!!, currentFact)
         } else {
             category?.let {
                 root.tv_fact_category.text = category
-                viewModel.fetchData(it)
+                factViewModel.fetchData(it)
             }
         }
 
-        viewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
+        factViewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
             when (it) {
                 is FactScreenState.Loading -> {
                     showLoadingState(root)
@@ -72,6 +65,7 @@ class FactFragment : Fragment() {
         })
 
         root.iv_fact_fragment_arrow_back.setOnClickListener {
+            factViewModel.currentFact = null
             findNavController().popBackStack()
         }
 
@@ -83,8 +77,8 @@ class FactFragment : Fragment() {
         }
 
         root.fact_swipe_layout.setOnRefreshListener {
-            viewModel.updateFact(category!!)
-            viewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
+            factViewModel.updateFact(category!!)
+            factViewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
                 when (it) {
                     true -> root.fact_swipe_layout.isRefreshing = true
                     false -> root.fact_swipe_layout.isRefreshing = false
@@ -119,6 +113,7 @@ class FactFragment : Fragment() {
         view.tv_fact_category.text = category.capitalize()
         view.tv_fact_text.text = fact.fact
         view.tv_fact_date.text = getDateString(fact.date)
+        factViewModel.currentFact = fact
     }
 
     private fun showErrorState(view: View, category: String) {
@@ -126,9 +121,14 @@ class FactFragment : Fragment() {
         view.fact_main_layout.hide()
         view.iv_fact_fragment_share.isClickable = false
         view.fact_swipe_layout.isRefreshing = false
-        val snackBar = getSnackBarConnectionProblems(requireView(), requireContext())
-        snackBar.setAction("Try again") {
-            viewModel.snackBarUpdateFact(category)
+        factViewModel.currentFact = null
+        val snackBar = getSnackBarConnectionProblems(
+            requireView(),
+            getString(R.string.connection_problems),
+            requireContext()
+        )
+        snackBar.setAction(getString(R.string.try_again)) {
+            factViewModel.snackBarUpdateFact(category)
         }
         snackBar.show()
     }
@@ -141,13 +141,5 @@ class FactFragment : Fragment() {
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val currentState = viewModel.screenState.value
-        if (currentState is FactScreenState.Success) {
-            outState.putParcelable(CURRENT_FACT, currentState.fact)
-        }
     }
 }

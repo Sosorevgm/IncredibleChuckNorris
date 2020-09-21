@@ -1,16 +1,20 @@
 package com.incredible.chuck.norris.view_model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.fact_datasource.FactDataSource
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.koin.core.inject
 
-class FactViewModel : BaseViewModel() {
+class FactViewModel(
+    private val source: FactDataSource<FactModel>
+) : BaseViewModel() {
 
-    private val source: FactDataSource<FactModel> by inject()
+    init {
+        Log.e("myLogs", "FactViewModel was created")
+    }
 
     val screenState: MutableLiveData<FactScreenState> by lazy {
         MutableLiveData<FactScreenState>()
@@ -19,6 +23,8 @@ class FactViewModel : BaseViewModel() {
     val isProgressbarActive: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+
+    var currentFact: FactModel? = null
 
     fun fetchData(category: String) {
         screenState.value = FactScreenState.Loading
