@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "877136476128",
+    "firebase_url": "https://incredible-chuck-norris.firebaseio.com",
+    "project_id": "incredible-chuck-norris",
+    "storage_bucket": "incredible-chuck-norris.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877136476128:android:62605f198fa73e7d5b1d85",
+        "android_client_info": {
+          "package_name": "com.incredible.chuck.norris"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877136476128-kio3hepg5g233vu0li78cfpafkm2uqm5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.incredible.chuck.norris",
+            "certificate_hash": "dc12669ffe16a29f465b922a2a24f1479d9462fb"
+          }
+        },
+        {
+          "client_id": "877136476128-h9jq4bsvioh9k66rpo1hoa52krcvn9qv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHtkq5xEdqgxY8ETbLLA-9XUvvvTlEqmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877136476128-h9jq4bsvioh9k66rpo1hoa52krcvn9qv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,7 +9,7 @@ import com.incredible.chuck.norris.R
 import kotlinx.android.synthetic.main.category_card_view.view.*
 
 class CategoryRVAdapter(
-    var categoryList: List<String>,
+    private var categoryList: List<String>,
     private val listener: CategoryClickListener
 ) : RecyclerView.Adapter<CategoryRVAdapter.ViewHolder>() {
 

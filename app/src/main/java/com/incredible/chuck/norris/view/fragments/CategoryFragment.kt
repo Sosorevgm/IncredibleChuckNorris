@@ -1,6 +1,7 @@
 package com.incredible.chuck.norris.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,10 +36,17 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         val adapter = CategoryRVAdapter(listOf(), this)
         root.rv_category_fragment.adapter = adapter
 
+        if (categoryViewModel.currentCategories != null) {
+            showSuccessState(root, adapter, categoryViewModel.currentCategories!!)
+        } else {
+            categoryViewModel.fetchData()
+        }
+
         categoryViewModel.screenState.observe(viewLifecycleOwner,
             Observer<CategoryScreenState> {
                 when (it) {
                     is CategoryScreenState.Loading -> {
+                        Log.e("myLogs", "LoadingState")
                         showLoadingState(root)
                     }
                     is CategoryScreenState.Success -> {

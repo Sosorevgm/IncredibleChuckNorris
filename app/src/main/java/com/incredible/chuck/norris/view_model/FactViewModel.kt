@@ -1,6 +1,5 @@
 package com.incredible.chuck.norris.view_model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.fact_datasource.FactDataSource
 import com.incredible.chuck.norris.data.models.FactModel
@@ -11,10 +10,6 @@ import kotlinx.coroutines.launch
 class FactViewModel(
     private val source: FactDataSource<FactModel>
 ) : BaseViewModel() {
-
-    init {
-        Log.e("myLogs", "FactViewModel was created")
-    }
 
     val screenState: MutableLiveData<FactScreenState> by lazy {
         MutableLiveData<FactScreenState>()

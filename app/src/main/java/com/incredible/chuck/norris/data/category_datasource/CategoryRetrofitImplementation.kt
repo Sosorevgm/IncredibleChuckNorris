@@ -8,17 +8,16 @@ class CategoryRetrofitImplementation :
     CategoryDataSource<List<String>> {
 
     companion object {
-        private const val BASE_URL = "https://api.chucknorris.io/jokes/categories/"
+        private const val BASE_URL = "https://api.chucknorris.io/"
+        private const val CATEGORIES_URL = BASE_URL + "jokes/categories/"
     }
 
-    override suspend fun getData(): List<String> {
-        return createRetrofit().create(ChuckNorrisApi::class.java).getCategories()
-    }
+    override suspend fun getData() = createRetrofit().create(ChuckNorrisApi::class.java).getCategories()
 
     private fun createRetrofit(): Retrofit {
         return Retrofit
             .Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(CATEGORIES_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -10,18 +10,18 @@ class FactRetrofitImplementation :
     FactDataSource<FactModel> {
 
     companion object {
-        private const val BASE_URL = "https://api.chucknorris.io/jokes/random/"
+        private const val BASE_URL = "https://api.chucknorris.io/"
+        private const val FACT_URL = BASE_URL + "jokes/random/"
     }
 
-    override suspend fun getData(category: String): FactModel {
-        return createRetrofit().create(ChuckNorrisApi::class.java).getFactByCategoryAsync(category)
-            .await()
-    }
+    override suspend fun getData(category: String) =
+        createRetrofit().create(ChuckNorrisApi::class.java).getFactByCategoryAsync(category).await()
+
 
     private fun createRetrofit(): Retrofit {
         return Retrofit
             .Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(FACT_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory.Companion())
             .build()
