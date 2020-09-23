@@ -100,7 +100,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     private fun startAnimation(view: View) {
-        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.chuck_rotate)
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.chuck_exception_icon_rotate)
         view.iv_category_error.startAnimation(animation)
     }
 

@@ -24,10 +24,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/shimmer_iv_fact_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="28dp"
+                    style="@style/FactImageStyle"
                     android:background="@drawable/shimmer_view_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,10 +79,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_fact_icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                style="@style/FactImageStyle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
