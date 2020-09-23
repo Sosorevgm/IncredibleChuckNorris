@@ -39,10 +39,8 @@ class FactFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_fact, container, false)
         val category = arguments?.getString(CATEGORY)
 
-        val currentFact = factViewModel.currentFact
-
-        if (currentFact != null) {
-            showSuccessState(root, category!!, currentFact)
+        if (factViewModel.currentFact != null) {
+            showSuccessState(root, category!!, factViewModel.currentFact!!)
         } else {
             category?.let {
                 root.tv_fact_category.text = category
