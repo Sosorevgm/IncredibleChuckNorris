@@ -62,12 +62,12 @@ class FactFragment : Fragment() {
             }
         })
 
-        root.iv_fact_fragment_arrow_back.setOnClickListener {
+        root.layout_fact_fragment_arrow_back.setOnClickListener {
             factViewModel.currentFact = null
             findNavController().popBackStack()
         }
 
-        root.iv_fact_fragment_share.setOnClickListener {
+        root.layout_fact_fragment_share.setOnClickListener {
             val fact = root.tv_fact_text.text.toString()
             if (fact.isNotEmpty()) {
                 shareFact(fact)
@@ -89,13 +89,13 @@ class FactFragment : Fragment() {
     private fun showLoadingState(view: View) {
         view.shimmer_fact_layout.show()
         view.fact_main_layout.hide()
-        view.iv_fact_fragment_share.isClickable = false
+        view.layout_fact_fragment_share.isClickable = false
     }
 
     private fun showSuccessState(view: View, category: String, fact: FactModel) {
         view.shimmer_fact_layout.hide()
         view.fact_main_layout.show()
-        view.iv_fact_fragment_share.isClickable = true
+        view.layout_fact_fragment_share.isClickable = true
 
         val chuckIcon = ContextCompat.getDrawable(
             requireContext(),
@@ -117,7 +117,7 @@ class FactFragment : Fragment() {
     private fun showErrorState(view: View, category: String) {
         view.shimmer_fact_layout.show()
         view.fact_main_layout.hide()
-        view.iv_fact_fragment_share.isClickable = false
+        view.layout_fact_fragment_share.isClickable = false
         view.fact_swipe_layout.isRefreshing = false
         factViewModel.currentFact = null
         val snackBar = getSnackBarConnectionProblems(

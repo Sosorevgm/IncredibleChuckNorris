@@ -9,7 +9,7 @@
     <style name="AppBarStyle">
         <item name="android:backgroundTint">@color/brown</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/AppBarHeight</item>
+        <item name="android:layout_height">@dimen/app_bar_height</item>
     </style>
 
     <style name="ToolBarStyle">
@@ -33,6 +33,18 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/date_text_color</item>
+    </style>
+
+    <style name="ExceptionImageStyle">
+        <item name="android:layout_width">@dimen/exception_image_width</item>
+        <item name="android:layout_height">@dimen/exception_image_height</item>
+    </style>
+
+    <style name="FactImageStyle">
+        <item name="android:layout_width">@dimen/fact_image_width</item>
+        <item name="android:layout_height">@dimen/fact_image_height</item>
+        <item name="android:layout_marginStart">@dimen/view_start_margin_16</item>
+        <item name="android:layout_marginTop">@dimen/view_margin_top_28</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

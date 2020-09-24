@@ -1,7 +1,6 @@
 package com.incredible.chuck.norris.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +45,6 @@ class CategoryFragment : Fragment(), CategoryClickListener {
             Observer<CategoryScreenState> {
                 when (it) {
                     is CategoryScreenState.Loading -> {
-                        Log.e("myLogs", "LoadingState")
                         showLoadingState(root)
                     }
                     is CategoryScreenState.Success -> {
@@ -79,6 +77,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         stopAnimation(view.iv_category_error)
         view.rv_category_fragment.show()
         adapter.updateCategoryList(categories)
+        categoryViewModel.currentCategories = categories
     }
 
     private fun showErrorState(view: View) {
@@ -100,7 +99,8 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     private fun startAnimation(view: View) {
-        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.chuck_rotate)
+        val animation =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.chuck_exception_icon_rotate)
         view.iv_category_error.startAnimation(animation)
     }
 
