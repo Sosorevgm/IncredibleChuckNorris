@@ -21,5 +21,4 @@ class CategoryRetrofitImplementation :
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
 }

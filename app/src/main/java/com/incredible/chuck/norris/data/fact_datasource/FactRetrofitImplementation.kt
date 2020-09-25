@@ -17,7 +17,6 @@ class FactRetrofitImplementation :
     override suspend fun getData(category: String) =
         createRetrofit().create(ChuckNorrisApi::class.java).getFactByCategoryAsync(category).await()
 
-
     private fun createRetrofit(): Retrofit {
         return Retrofit
             .Builder()
