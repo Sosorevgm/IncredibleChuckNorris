@@ -40,5 +40,4 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sad_chuck_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

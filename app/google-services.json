@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "877136476128",
-    "firebase_url": "https://incredible-chuck-norris.firebaseio.com",
-    "project_id": "incredible-chuck-norris",
-    "storage_bucket": "incredible-chuck-norris.appspot.com"
+    "project_number": "350953055709",
+    "firebase_url": "https://incredible-chuck-norris-e0b2a.firebaseio.com",
+    "project_id": "incredible-chuck-norris-e0b2a",
+    "storage_bucket": "incredible-chuck-norris-e0b2a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:877136476128:android:62605f198fa73e7d5b1d85",
+        "mobilesdk_app_id": "1:350953055709:android:2ebafc5abd130803ee0234",
         "android_client_info": {
           "package_name": "com.incredible.chuck.norris"
         }
       },
       "oauth_client": [
         {
-          "client_id": "877136476128-kio3hepg5g233vu0li78cfpafkm2uqm5.apps.googleusercontent.com",
+          "client_id": "350953055709-u6vtp8v2a7kk74l1dth8t43guoj7so2m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.incredible.chuck.norris",
-            "certificate_hash": "dc12669ffe16a29f465b922a2a24f1479d9462fb"
+            "certificate_hash": "3b499411837989115c0eec50e282f7461614073f"
           }
         },
         {
-          "client_id": "877136476128-h9jq4bsvioh9k66rpo1hoa52krcvn9qv.apps.googleusercontent.com",
+          "client_id": "350953055709-61rsi493594skapdafg05anannro3jdq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCHtkq5xEdqgxY8ETbLLA-9XUvvvTlEqmQ"
+          "current_key": "AIzaSyCKuNQYG4KCR7R04Zqey2-4bywe6v7adxY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "877136476128-h9jq4bsvioh9k66rpo1hoa52krcvn9qv.apps.googleusercontent.com",
+              "client_id": "350953055709-61rsi493594skapdafg05anannro3jdq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
