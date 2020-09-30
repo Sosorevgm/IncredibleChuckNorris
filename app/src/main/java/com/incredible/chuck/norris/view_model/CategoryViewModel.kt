@@ -25,7 +25,7 @@ class CategoryViewModel(
                 source.getData()
             }
             if (categories.isNotEmpty()) {
-                screenState.value = CategoryScreenState.Success(categories)
+                screenState.value = CategoryScreenState.Success(removeProfanityCategories(categories))
             }
         }
     }
@@ -38,10 +38,13 @@ class CategoryViewModel(
                 source.getData()
             }
             if (categories.isNotEmpty()) {
-                screenState.value = CategoryScreenState.Success(categories)
+                screenState.value = CategoryScreenState.Success(removeProfanityCategories(categories))
             }
         }
     }
+
+    private fun removeProfanityCategories(categories: List<String>) =
+        categories.filter { it != "explicit" }
 
     override fun handleError(error: Throwable) {
         screenState.value = CategoryScreenState.Error
