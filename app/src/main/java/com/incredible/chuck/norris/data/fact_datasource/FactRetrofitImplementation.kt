@@ -14,7 +14,7 @@ class FactRetrofitImplementation :
         private const val FACT_URL = BASE_URL + "jokes/random/"
     }
 
-    override suspend fun getData(category: String) =
+    override suspend fun getFact(category: String) =
         createRetrofit().create(ChuckNorrisApi::class.java).getFactByCategoryAsync(category).await()
 
     private fun createRetrofit(): Retrofit {
