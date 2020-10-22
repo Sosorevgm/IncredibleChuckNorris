@@ -5,6 +5,8 @@ object Versions {
     const val appcompat = "1.1.0"
     const val constraint_layout = "1.1.3"
     const val swipe_to_refresh = "1.1.0"
+    const val view_pager_2 ="1.0.0"
+    const val material = "1.2.1"
 
     const val navigation_fragment = "2.3.0"
     const val navigation_ui_ktx = "2.3.0"
@@ -20,6 +22,8 @@ object Versions {
     const val koin_view_model = "2.1.6"
     const val koin_fragment = "2.1.6"
     const val koin_ext = "2.1.6"
+
+    const val room_version = "2.2.5"
 
     const val glide = "4.11.0"
     const val glide_compiler = "4.11.0"
@@ -46,8 +50,8 @@ object Config {
 }
 
 object Releases {
-    const val version_code = 3
-    const val version_name = "1.2"
+    const val version_code = 4
+    const val version_name = "1.3"
 }
 
 object Kotlin {
@@ -59,6 +63,8 @@ object Design {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
     const val swipe_to_refresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_to_refresh}"
+    const val view_pager_2 = "androidx.viewpager2:viewpager2:${Versions.view_pager_2}"
+    const val material = "com.google.android.material:material:${Versions.material}"
 }
 
 object Navigation {
@@ -68,10 +74,10 @@ object Navigation {
 
 object Coroutines {
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines_core}"
-    const val android ="org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_android}"
+    const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_android}"
 }
 
-object Retrofit{
+object Retrofit {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit_gson_converter}"
     const val coroutines_adapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofit_coroutines_adapter}"
@@ -84,6 +90,12 @@ object Koin {
     const val ext = "org.koin:koin-androidx-ext:${Versions.koin_ext}"
 }
 
+object Room {
+    const val runtime = "androidx.room:room-runtime:${Versions.room_version}"
+    const val ktx = "androidx.room:room-ktx:${Versions.room_version}"
+    const val kapt = "androidx.room:room-compiler:${Versions.room_version}"
+}
+
 object Glide {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide_compiler}"
@@ -93,11 +105,11 @@ object Shimmer {
     const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
 }
 
-object Firebase{
-    const val analytics ="com.google.firebase:firebase-analytics:${Versions.firebase_analytics}"
-    const val crashlytics ="com.google.firebase:firebase-crashlytics:${Versions.firebase_crashlytics}"
-    const val analytics_kotlin ="com.google.firebase:firebase-analytics-ktx:${Versions.firebase_kotlin_analytics}"
-    const val crashlytics_kotlin ="com.google.firebase:firebase-crashlytics-ktx:${Versions.firebase_kotlin_crashlytics}"
+object Firebase {
+    const val analytics = "com.google.firebase:firebase-analytics:${Versions.firebase_analytics}"
+    const val crashlytics = "com.google.firebase:firebase-crashlytics:${Versions.firebase_crashlytics}"
+    const val analytics_kotlin = "com.google.firebase:firebase-analytics-ktx:${Versions.firebase_kotlin_analytics}"
+    const val crashlytics_kotlin = "com.google.firebase:firebase-crashlytics-ktx:${Versions.firebase_kotlin_crashlytics}"
 }
 
 object TestImpl {
