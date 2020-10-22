@@ -7,11 +7,14 @@
     <application
         android:name=".application.IncredibleChuckNorrisApp"
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/chuck_white_background_icon"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/chuck_white_background_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.activities.OnboardingActivity"
+            android:theme="@style/OnboardingActivityTheme" />
         <activity
             android:name=".view.activities.SplashActivity"
             android:theme="@style/SplashTheme">

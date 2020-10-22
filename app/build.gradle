@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -33,6 +34,8 @@ dependencies {
     implementation Design.appcompat
     implementation Design.constraint_layout
     implementation Design.swipe_to_refresh
+    implementation Design.view_pager_2
+    implementation Design.material
 
     implementation Navigation.fragment
     implementation Navigation.ui_ktx
@@ -48,6 +51,10 @@ dependencies {
     implementation Koin.view_model
     implementation Koin.fragment
     implementation Koin.ext
+
+    implementation Room.runtime
+    implementation Room.ktx
+    kapt Room.kapt
 
     implementation Glide.glide
     annotationProcessor Glide.glide_compiler

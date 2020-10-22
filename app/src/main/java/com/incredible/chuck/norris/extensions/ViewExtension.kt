@@ -2,10 +2,10 @@ package com.incredible.chuck.norris.extensions
 
 import android.view.View
 
-fun View.show() {
-    visibility = View.VISIBLE
-}
-
-fun View.hide() {
-    visibility = View.GONE
+infix fun View.isNeedToShow(flag: Boolean) {
+    visibility = if (flag) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
 }

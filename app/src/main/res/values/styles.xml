@@ -6,6 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="OnboardingActivityTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="AppBarStyle">
         <item name="android:backgroundTint">@color/brown</item>
         <item name="android:layout_width">match_parent</item>

@@ -10,8 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
-import com.incredible.chuck.norris.extensions.hide
-import com.incredible.chuck.norris.extensions.show
+import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
@@ -44,15 +43,9 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         categoryViewModel.screenState.observe(viewLifecycleOwner,
             Observer<CategoryScreenState> {
                 when (it) {
-                    is CategoryScreenState.Loading -> {
-                        showLoadingState(root)
-                    }
-                    is CategoryScreenState.Success -> {
-                        showSuccessState(root, adapter, it.categories)
-                    }
-                    is CategoryScreenState.Error -> {
-                        showErrorState(root)
-                    }
+                    is CategoryScreenState.Loading -> showLoadingState(root)
+                    is CategoryScreenState.Success -> showSuccessState(root, adapter, it.categories)
+                    is CategoryScreenState.Error -> showErrorState(root)
                 }
             })
 
@@ -65,25 +58,25 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     private fun showLoadingState(view: View) {
-        view.rv_category_fragment.hide()
-        view.iv_category_error.hide()
+        view.rv_category_fragment isNeedToShow false
+        view.iv_category_error isNeedToShow false
+        view.pb_category_fragment isNeedToShow true
         stopAnimation(view.iv_category_error)
-        view.pb_category_fragment.show()
     }
 
     private fun showSuccessState(view: View, adapter: CategoryRVAdapter, categories: List<String>) {
-        view.pb_category_fragment.hide()
-        view.iv_category_error.hide()
+        view.pb_category_fragment isNeedToShow false
+        view.iv_category_error isNeedToShow false
+        view.rv_category_fragment isNeedToShow true
         stopAnimation(view.iv_category_error)
-        view.rv_category_fragment.show()
         adapter.updateCategoryList(categories)
         categoryViewModel.currentCategories = categories
     }
 
     private fun showErrorState(view: View) {
-        view.pb_category_fragment.hide()
-        view.rv_category_fragment.hide()
-        view.iv_category_error.show()
+        view.pb_category_fragment isNeedToShow false
+        view.rv_category_fragment isNeedToShow false
+        view.iv_category_error isNeedToShow true
         startAnimation(view.iv_category_error)
         val snackBar =
             getSnackBarConnectionProblems(

@@ -13,8 +13,7 @@ import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
-import com.incredible.chuck.norris.extensions.hide
-import com.incredible.chuck.norris.extensions.show
+import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getDateString
 import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
 import com.incredible.chuck.norris.view_model.FactViewModel
@@ -50,15 +49,9 @@ class FactFragment : Fragment() {
 
         factViewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
             when (it) {
-                is FactScreenState.Loading -> {
-                    showLoadingState(root)
-                }
-                is FactScreenState.Success -> {
-                    showSuccessState(root, category!!, it.fact)
-                }
-                is FactScreenState.Error -> {
-                    showErrorState(root, category!!)
-                }
+                is FactScreenState.Loading -> showLoadingState(root)
+                is FactScreenState.Success -> showSuccessState(root, category!!, it.fact)
+                is FactScreenState.Error -> showErrorState(root, category!!)
             }
         })
 
@@ -87,14 +80,14 @@ class FactFragment : Fragment() {
     }
 
     private fun showLoadingState(view: View) {
-        view.shimmer_fact_layout.show()
-        view.fact_main_layout.hide()
+        view.shimmer_fact_layout isNeedToShow true
+        view.fact_main_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = false
     }
 
     private fun showSuccessState(view: View, category: String, fact: FactModel) {
-        view.shimmer_fact_layout.hide()
-        view.fact_main_layout.show()
+        view.shimmer_fact_layout isNeedToShow false
+        view.fact_main_layout isNeedToShow true
         view.layout_fact_fragment_share.isClickable = true
 
         val chuckIcon = ContextCompat.getDrawable(
@@ -105,7 +98,7 @@ class FactFragment : Fragment() {
         if (chuckIcon != null) {
             imageLoader.loadImageFromResources(chuckIcon, view.iv_fact_icon)
         } else {
-            imageLoader.loadImageFromUrl(fact.icon_url, view.iv_fact_icon)
+            imageLoader.loadImageFromUrl(fact.iconUrl, view.iv_fact_icon)
         }
 
         view.tv_fact_category.text = category.capitalize()
@@ -115,8 +108,8 @@ class FactFragment : Fragment() {
     }
 
     private fun showErrorState(view: View, category: String) {
-        view.shimmer_fact_layout.show()
-        view.fact_main_layout.hide()
+        view.shimmer_fact_layout isNeedToShow true
+        view.fact_main_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = false
         view.fact_swipe_layout.isRefreshing = false
         factViewModel.currentFact = null

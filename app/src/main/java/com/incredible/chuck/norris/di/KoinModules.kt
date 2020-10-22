@@ -1,5 +1,6 @@
 package com.incredible.chuck.norris.di
 
+import androidx.room.Room
 import com.incredible.chuck.norris.data.category_datasource.CategoryDataSource
 import com.incredible.chuck.norris.data.category_datasource.CategoryRetrofitImplementation
 import com.incredible.chuck.norris.data.fact_datasource.FactDataSource
@@ -7,6 +8,7 @@ import com.incredible.chuck.norris.data.fact_datasource.FactRetrofitImplementati
 import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.models.FactModel
+import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.utils.ProfanityFilter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
 import com.incredible.chuck.norris.view_model.FactViewModel
@@ -29,6 +31,10 @@ val application = module {
 
     single {
         ProfanityFilter(get())
+    }
+
+    single{
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "app_database").build()
     }
 }
 
