@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.fact_datasource.FactDataSource
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
-import com.incredible.chuck.norris.utils.ProfanityFilter
+import com.sosorevgm.profanityfilter.ProfanityFilter
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -12,6 +12,10 @@ class FactViewModel(
     private val source: FactDataSource<FactModel>,
     private val profanityFilter: ProfanityFilter
 ) : BaseViewModel() {
+
+    init {
+        profanityFilter.addSwearwords("dickfat")
+    }
 
     val screenState: MutableLiveData<FactScreenState> by lazy {
         MutableLiveData<FactScreenState>()
@@ -60,7 +64,11 @@ class FactViewModel(
         }
     }
 
-    private fun applyProfanityFilter(fact: FactModel) = profanityFilter.applyFilter(fact)
+    private fun applyProfanityFilter(fact: FactModel): FactModel {
+        val filteredFact = profanityFilter.getFilteredString(fact.fact)
+        fact.fact = filteredFact
+        return fact
+    }
 
     override fun handleError(error: Throwable) {
         screenState.value = error.message?.let { FactScreenState.Error(it) }

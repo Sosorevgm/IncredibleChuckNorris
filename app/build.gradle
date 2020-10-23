@@ -61,6 +61,8 @@ dependencies {
 
     implementation Shimmer.shimmer
 
+    implementation Filter.profanity_filter
+
     implementation Firebase.analytics
     implementation Firebase.crashlytics
     implementation Firebase.analytics_kotlin

@@ -30,6 +30,8 @@ object Versions {
 
     const val shimmer = "0.5.0"
 
+    const val profanity_filter = "1.0.0"
+
     const val firebase_analytics = "17.5.0"
     const val firebase_crashlytics = "17.2.1"
     const val firebase_kotlin_analytics = "17.5.0"
@@ -103,6 +105,10 @@ object Glide {
 
 object Shimmer {
     const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
+}
+
+object Filter {
+    const val profanity_filter = "com.sosorevgm.profanityfilter:profanityfilter:${Versions.profanity_filter}"
 }
 
 object Firebase {
