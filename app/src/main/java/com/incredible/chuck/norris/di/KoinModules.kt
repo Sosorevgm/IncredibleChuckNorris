@@ -9,9 +9,9 @@ import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.room.AppDatabase
-import com.incredible.chuck.norris.utils.ProfanityFilter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
 import com.incredible.chuck.norris.view_model.FactViewModel
+import com.sosorevgm.profanityfilter.ProfanityFilter
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -33,7 +33,7 @@ val application = module {
         ProfanityFilter(get())
     }
 
-    single{
+    single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "app_database").build()
     }
 }
