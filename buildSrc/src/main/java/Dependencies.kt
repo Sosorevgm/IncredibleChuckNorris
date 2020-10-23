@@ -52,7 +52,7 @@ object Config {
 }
 
 object Releases {
-    const val version_code = 4
+    const val version_code = 5
     const val version_name = "1.3"
 }
 
