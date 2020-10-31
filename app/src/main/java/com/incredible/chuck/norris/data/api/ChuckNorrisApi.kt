@@ -6,9 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ChuckNorrisApi {
-    @GET(".")
+    @GET("jokes/categories/")
     suspend fun getCategories(): List<String>
 
-    @GET(".")
+    @GET("jokes/random/")
     fun getFactByCategoryAsync(@Query("category") category: String): Deferred<FactModel>
 }

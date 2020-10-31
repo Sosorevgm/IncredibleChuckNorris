@@ -1,15 +1,16 @@
 package com.incredible.chuck.norris.view_model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.incredible.chuck.norris.data.fact_datasource.FactDataSource
 import com.incredible.chuck.norris.data.models.FactModel
+import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.sosorevgm.profanityfilter.ProfanityFilter
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class FactViewModel(
-    private val source: FactDataSource<FactModel>,
+    private val repository: FactRepository,
     private val profanityFilter: ProfanityFilter
 ) : BaseViewModel() {
 
@@ -32,7 +33,7 @@ class FactViewModel(
 
         coroutineScope.launch {
             val deferredFact = async {
-                source.getFact(category)
+                repository.getFact(category)
             }
             val fact = deferredFact.await()
             screenState.value = FactScreenState.Success(applyProfanityFilter(fact))
@@ -45,7 +46,7 @@ class FactViewModel(
         coroutineScope.launch {
 
             val deferredFact = async {
-                source.getFact(category)
+                repository.getFact(category)
             }
             val fact = deferredFact.await()
 
@@ -57,7 +58,7 @@ class FactViewModel(
     fun snackBarUpdateFact(category: String) {
         coroutineScope.launch {
             val deferredFact = async {
-                source.getFact(category)
+                repository.getFact(category)
             }
             val fact = deferredFact.await()
             screenState.value = FactScreenState.Success(applyProfanityFilter(fact))
@@ -71,6 +72,7 @@ class FactViewModel(
     }
 
     override fun handleError(error: Throwable) {
+        Log.e("myLogs", "error = ${error.message}")
         screenState.value = error.message?.let { FactScreenState.Error(it) }
     }
 }
