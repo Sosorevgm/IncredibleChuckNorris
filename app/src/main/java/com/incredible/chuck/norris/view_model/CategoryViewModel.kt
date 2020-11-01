@@ -1,6 +1,8 @@
 package com.incredible.chuck.norris.view_model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.repository.CategoriesRepository
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import kotlinx.coroutines.Dispatchers
@@ -8,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CategoryViewModel(
+    private val network: NetworkStatus,
     private val repository: CategoriesRepository
 ) : BaseViewModel() {
 
@@ -21,29 +24,33 @@ class CategoryViewModel(
         screenState.value = CategoryScreenState.Loading
 
         coroutineScope.launch {
-            val categories = withContext(Dispatchers.IO) {
-                repository.getCategories()
-            }
-            if (categories.isNotEmpty()) {
-                screenState.value = CategoryScreenState.Success(categories)
-            }
-        }
-    }
+            if (network.status.value!!) {
 
-    fun updateCategories() {
-        screenState.value = CategoryScreenState.Loading
+                val categoriesFromApi = withContext(Dispatchers.IO) {
+                    repository.getCategories()
+                }
 
-        coroutineScope.launch {
-            val categories = withContext(Dispatchers.IO) {
-                repository.getCategories()
-            }
-            if (categories.isNotEmpty()) {
-                screenState.value = CategoryScreenState.Success(categories)
+                if (categoriesFromApi.isNotEmpty()) {
+                    screenState.value = CategoryScreenState.SuccessFromApi(categoriesFromApi)
+                    repository.putCategoriesInCache(categoriesFromApi)
+                }
+            } else {
+
+                val categoriesFromCache = withContext(Dispatchers.IO) {
+                    repository.getCategoriesFromCache()
+                }
+
+                if (categoriesFromCache.isNotEmpty()) {
+                    screenState.value = CategoryScreenState.SuccessFromCache(categoriesFromCache)
+                } else {
+                    screenState.value = CategoryScreenState.Error
+                }
             }
         }
     }
 
     override fun handleError(error: Throwable) {
         screenState.value = CategoryScreenState.Error
+        Log.e("myLogs", "error = ${error.javaClass}")
     }
 }

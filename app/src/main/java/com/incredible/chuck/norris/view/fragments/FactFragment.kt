@@ -115,7 +115,6 @@ class FactFragment : Fragment() {
         factViewModel.currentFact = null
         val snackBar = getSnackBarConnectionProblems(
             requireView(),
-            getString(R.string.connection_problems),
             requireContext()
         )
         snackBar.setAction(getString(R.string.try_again)) {

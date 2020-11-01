@@ -8,6 +8,8 @@ import com.incredible.chuck.norris.data.fact_datasource.FactCacheImplementation
 import com.incredible.chuck.norris.data.fact_datasource.FactRetrofitImplementation
 import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
+import com.incredible.chuck.norris.data.network.AndroidNetworkStatus
+import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.repository.CategoriesRepository
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.room.AppDatabase
@@ -24,11 +26,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 val application = module {
 
     single<ImageLoader> {
-        GlideImageLoader(androidContext())
+        GlideImageLoader(context = androidContext())
     }
 
     single {
         ProfanityFilter(get())
+    }
+
+    single<NetworkStatus> {
+        AndroidNetworkStatus(context = androidContext())
     }
 
     single {
@@ -71,7 +77,7 @@ val application = module {
 
 val viewModelDependency = module {
     viewModel {
-        CategoryViewModel(repository = get())
+        CategoryViewModel(network = get(), repository = get())
     }
 
     viewModel {
