@@ -7,8 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "facts_table")
 class FactEntity(
     @field:PrimaryKey
-    @field:ColumnInfo(name = "primary_key")
-    val primaryKey: Int,
     @field:ColumnInfo(name = "id")
     val id: String,
     @field:ColumnInfo(name = "category")
