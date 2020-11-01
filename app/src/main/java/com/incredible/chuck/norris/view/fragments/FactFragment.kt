@@ -15,6 +15,7 @@ import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getDateString
+import com.incredible.chuck.norris.utils.getSnackBarCacheData
 import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
 import com.incredible.chuck.norris.view_model.FactViewModel
 import kotlinx.android.synthetic.main.fact_layout.view.*
@@ -39,7 +40,7 @@ class FactFragment : Fragment() {
         val category = arguments?.getString(CATEGORY)
 
         if (factViewModel.currentFact != null) {
-            showSuccessState(root, category!!, factViewModel.currentFact!!)
+            showSuccessStateFromApi(root, category!!, factViewModel.currentFact!!)
         } else {
             category?.let {
                 root.tv_fact_category.text = category
@@ -50,7 +51,16 @@ class FactFragment : Fragment() {
         factViewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
             when (it) {
                 is FactScreenState.Loading -> showLoadingState(root)
-                is FactScreenState.Success -> showSuccessState(root, category!!, it.fact)
+                is FactScreenState.SuccessFromApi -> showSuccessStateFromApi(
+                    root,
+                    category!!,
+                    it.fact
+                )
+                is FactScreenState.SuccessFromCache -> showSuccessStateFromCache(
+                    root,
+                    category!!,
+                    it.fact
+                )
                 is FactScreenState.Error -> showErrorState(root, category!!)
             }
         })
@@ -85,7 +95,7 @@ class FactFragment : Fragment() {
         view.layout_fact_fragment_share.isClickable = false
     }
 
-    private fun showSuccessState(view: View, category: String, fact: FactModel) {
+    private fun showSuccessStateFromApi(view: View, category: String, fact: FactModel) {
         view.shimmer_fact_layout isNeedToShow false
         view.fact_main_layout isNeedToShow true
         view.layout_fact_fragment_share.isClickable = true
@@ -107,20 +117,46 @@ class FactFragment : Fragment() {
         factViewModel.currentFact = fact
     }
 
+    private fun showSuccessStateFromCache(view: View, category: String, fact: FactModel) {
+        view.shimmer_fact_layout isNeedToShow false
+        view.fact_main_layout isNeedToShow true
+        view.layout_fact_fragment_share.isClickable = true
+
+        val chuckIcon = ContextCompat.getDrawable(
+            requireContext(),
+            R.drawable.chuck_main_icon
+        )
+
+        if (chuckIcon != null) {
+            imageLoader.loadImageFromResources(chuckIcon, view.iv_fact_icon)
+        } else {
+            imageLoader.loadImageFromUrl(fact.iconUrl, view.iv_fact_icon)
+        }
+
+        view.tv_fact_category.text = category.capitalize()
+        view.tv_fact_text.text = fact.fact
+        view.tv_fact_date.text = getDateString(fact.date)
+        factViewModel.currentFact = fact
+        getSnackBarCacheData(
+            requireView(),
+            requireContext()
+        ).setAction(getString(R.string.cache_data)) {
+            factViewModel.snackBarUpdateFact(category)
+        }.show()
+    }
+
     private fun showErrorState(view: View, category: String) {
         view.shimmer_fact_layout isNeedToShow true
         view.fact_main_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = false
         view.fact_swipe_layout.isRefreshing = false
         factViewModel.currentFact = null
-        val snackBar = getSnackBarConnectionProblems(
+        getSnackBarConnectionProblems(
             requireView(),
             requireContext()
-        )
-        snackBar.setAction(getString(R.string.try_again)) {
+        ).setAction(getString(R.string.try_again)) {
             factViewModel.snackBarUpdateFact(category)
-        }
-        snackBar.show()
+        }.show()
     }
 
     private fun shareFact(fact: String) {

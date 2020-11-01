@@ -27,7 +27,7 @@ class CategoryViewModel(
             if (network.status.value!!) {
 
                 val categoriesFromApi = withContext(Dispatchers.IO) {
-                    repository.getCategories()
+                    repository.getCategoriesFromApi()
                 }
 
                 if (categoriesFromApi.isNotEmpty()) {

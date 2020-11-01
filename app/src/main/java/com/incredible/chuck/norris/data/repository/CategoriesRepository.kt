@@ -8,7 +8,7 @@ class CategoriesRepository(
     private val retrofit: CategoryRetrofitImplementation,
     private val cache: CategoryCacheImplementation
 ) {
-    suspend fun getCategories(): List<String> {
+    suspend fun getCategoriesFromApi(): List<String> {
         return retrofit.getCategories()
     }
 

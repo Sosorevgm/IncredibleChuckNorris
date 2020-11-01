@@ -81,6 +81,6 @@ val viewModelDependency = module {
     }
 
     viewModel {
-        FactViewModel(repository = get(), profanityFilter = get())
+        FactViewModel(networkStatus = get(), repository = get(), profanityFilter = get())
     }
 }

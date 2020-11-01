@@ -36,7 +36,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         root.rv_category_fragment.adapter = adapter
 
         if (categoryViewModel.currentCategories != null) {
-            showSuccessState(root, adapter, categoryViewModel.currentCategories!!)
+            showSuccessStateFromApi(root, adapter, categoryViewModel.currentCategories!!)
         } else {
             categoryViewModel.fetchData()
         }
@@ -45,7 +45,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
             Observer<CategoryScreenState> {
                 when (it) {
                     is CategoryScreenState.Loading -> showLoadingState(root)
-                    is CategoryScreenState.SuccessFromApi -> showSuccessState(
+                    is CategoryScreenState.SuccessFromApi -> showSuccessStateFromApi(
                         root,
                         adapter,
                         it.categories
@@ -72,7 +72,11 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         stopAnimation(view.iv_category_error)
     }
 
-    private fun showSuccessState(view: View, adapter: CategoryRVAdapter, categories: List<String>) {
+    private fun showSuccessStateFromApi(
+        view: View,
+        adapter: CategoryRVAdapter,
+        categories: List<String>
+    ) {
         view.pb_category_fragment isNeedToShow false
         view.iv_category_error isNeedToShow false
         view.rv_category_fragment isNeedToShow true

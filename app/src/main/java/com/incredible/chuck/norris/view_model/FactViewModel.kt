@@ -3,6 +3,7 @@ package com.incredible.chuck.norris.view_model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.models.FactModel
+import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.sosorevgm.profanityfilter.ProfanityFilter
@@ -10,6 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class FactViewModel(
+    private val networkStatus: NetworkStatus,
     private val repository: FactRepository,
     private val profanityFilter: ProfanityFilter
 ) : BaseViewModel() {
@@ -33,10 +35,10 @@ class FactViewModel(
 
         coroutineScope.launch {
             val deferredFact = async {
-                repository.getFact(category)
+                repository.getFactFromApi(category)
             }
             val fact = deferredFact.await()
-            screenState.value = FactScreenState.Success(applyProfanityFilter(fact))
+            screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
         }
     }
 
@@ -46,11 +48,11 @@ class FactViewModel(
         coroutineScope.launch {
 
             val deferredFact = async {
-                repository.getFact(category)
+                repository.getFactFromApi(category)
             }
             val fact = deferredFact.await()
 
-            screenState.value = FactScreenState.Success(applyProfanityFilter(fact))
+            screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
             isProgressbarActive.value = false
         }
     }
@@ -58,10 +60,10 @@ class FactViewModel(
     fun snackBarUpdateFact(category: String) {
         coroutineScope.launch {
             val deferredFact = async {
-                repository.getFact(category)
+                repository.getFactFromApi(category)
             }
             val fact = deferredFact.await()
-            screenState.value = FactScreenState.Success(applyProfanityFilter(fact))
+            screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
         }
     }
 
