@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import com.incredible.chuck.norris.extensions.isNeedToShow
-import com.incredible.chuck.norris.utils.getSnackBarCacheData
-import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
+import com.incredible.chuck.norris.utils.getSnackBarCategoriesError
+import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
@@ -53,7 +53,11 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                     is CategoryScreenState.SuccessFromCache -> {
                         showSuccessStateFromCache(root, adapter, it.categories)
                     }
-                    is CategoryScreenState.Error -> showErrorState(root)
+                    is CategoryScreenState.ErrorCacheIsEmpty -> showErrorState(
+                        root,
+                        it.error
+                    )
+                    is CategoryScreenState.Error -> showErrorState(root, it.error)
                 }
             })
 
@@ -96,27 +100,22 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         stopAnimation(view.iv_category_error)
         adapter.updateCategoryList(categories)
         categoryViewModel.currentCategories = categories
-        getSnackBarCacheData(
+        getSnackBarCategoriesFromCache(
             requireView(),
             requireContext()
-        ).setAction(getString(R.string.try_again)) {
-            categoryViewModel.fetchData()
-            view.rv_category_fragment.scheduleLayoutAnimation()
-        }.show()
+        ).show()
     }
 
-    private fun showErrorState(view: View) {
+    private fun showErrorState(view: View, error: String) {
         view.pb_category_fragment isNeedToShow false
         view.rv_category_fragment isNeedToShow false
         view.iv_category_error isNeedToShow true
         startAnimation(view.iv_category_error)
-        getSnackBarConnectionProblems(
+        getSnackBarCategoriesError(
             requireView(),
+            error,
             requireContext()
-        ).setAction(getString(R.string.try_again)) {
-            categoryViewModel.fetchData()
-            view.rv_category_fragment.scheduleLayoutAnimation()
-        }.show()
+        ).show()
     }
 
     private fun startAnimation(view: View) {

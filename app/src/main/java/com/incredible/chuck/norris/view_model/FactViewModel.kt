@@ -1,11 +1,11 @@
 package com.incredible.chuck.norris.view_model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
+import com.incredible.chuck.norris.exceptions.FactCacheIsEmptyException
 import com.sosorevgm.profanityfilter.ProfanityFilter
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -32,38 +32,41 @@ class FactViewModel(
 
     fun fetchData(category: String) {
         screenState.value = FactScreenState.Loading
-
         coroutineScope.launch {
-            val deferredFact = async {
-                repository.getFactFromApi(category)
+            if (networkStatus.status.value!!) {
+                val deferredFact = async {
+                    repository.getFactFromApi(category)
+                }
+                val fact = deferredFact.await()
+                screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
+                repository.putFact(fact, category)
+            } else {
+                val factFromCache = repository.getRandomFactFromCacheByCategory(category)
+                screenState.value =
+                    FactScreenState.SuccessFromCache(applyProfanityFilter(factFromCache))
             }
-            val fact = deferredFact.await()
-            screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
         }
     }
 
     fun updateFact(category: String) {
+        screenState.value = FactScreenState.Loading
         isProgressbarActive.value = true
 
         coroutineScope.launch {
-
-            val deferredFact = async {
-                repository.getFactFromApi(category)
+            if (networkStatus.status.value!!) {
+                val deferredFact = async {
+                    repository.getFactFromApi(category)
+                }
+                val fact = deferredFact.await()
+                screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
+                isProgressbarActive.value = false
+                repository.putFact(fact, category)
+            } else {
+                val factFromCache = repository.getRandomFactFromCacheByCategory(category)
+                screenState.value =
+                    FactScreenState.SuccessFromCache(applyProfanityFilter(factFromCache))
+                isProgressbarActive.value = false
             }
-            val fact = deferredFact.await()
-
-            screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
-            isProgressbarActive.value = false
-        }
-    }
-
-    fun snackBarUpdateFact(category: String) {
-        coroutineScope.launch {
-            val deferredFact = async {
-                repository.getFactFromApi(category)
-            }
-            val fact = deferredFact.await()
-            screenState.value = FactScreenState.SuccessFromApi(applyProfanityFilter(fact))
         }
     }
 
@@ -74,7 +77,10 @@ class FactViewModel(
     }
 
     override fun handleError(error: Throwable) {
-        Log.e("myLogs", "error = ${error.message}")
-        screenState.value = error.message?.let { FactScreenState.Error(it) }
+        if (error is FactCacheIsEmptyException) {
+            screenState.value = FactScreenState.ErrorCacheIsEmpty(error.message)
+        } else {
+            screenState.value = FactScreenState.Error(error.message ?: "Unexpected error")
+        }
     }
 }

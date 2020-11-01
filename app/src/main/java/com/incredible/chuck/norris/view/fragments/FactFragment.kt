@@ -15,8 +15,8 @@ import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getDateString
-import com.incredible.chuck.norris.utils.getSnackBarCacheData
-import com.incredible.chuck.norris.utils.getSnackBarConnectionProblems
+import com.incredible.chuck.norris.utils.getSnackBarFactError
+import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
 import com.incredible.chuck.norris.view_model.FactViewModel
 import kotlinx.android.synthetic.main.fact_layout.view.*
 import kotlinx.android.synthetic.main.fragment_fact.view.*
@@ -61,7 +61,8 @@ class FactFragment : Fragment() {
                     category!!,
                     it.fact
                 )
-                is FactScreenState.Error -> showErrorState(root, category!!)
+                is FactScreenState.ErrorCacheIsEmpty -> showErrorState(root, it.error)
+                is FactScreenState.Error -> showErrorState(root, it.error)
             }
         })
 
@@ -137,26 +138,23 @@ class FactFragment : Fragment() {
         view.tv_fact_text.text = fact.fact
         view.tv_fact_date.text = getDateString(fact.date)
         factViewModel.currentFact = fact
-        getSnackBarCacheData(
+        getSnackBarFactsFromCache(
             requireView(),
             requireContext()
-        ).setAction(getString(R.string.cache_data)) {
-            factViewModel.snackBarUpdateFact(category)
-        }.show()
+        ).show()
     }
 
-    private fun showErrorState(view: View, category: String) {
+    private fun showErrorState(view: View, error: String) {
         view.shimmer_fact_layout isNeedToShow true
         view.fact_main_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = false
         view.fact_swipe_layout.isRefreshing = false
         factViewModel.currentFact = null
-        getSnackBarConnectionProblems(
+        getSnackBarFactError(
             requireView(),
+            error,
             requireContext()
-        ).setAction(getString(R.string.try_again)) {
-            factViewModel.snackBarUpdateFact(category)
-        }.show()
+        ).show()
     }
 
     private fun shareFact(fact: String) {
