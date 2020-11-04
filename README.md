@@ -1,4 +1,4 @@
-# IncredibleChuckNorris
+# Incredible Chuck Norris
 
 Развлекательное приложение, показывающее шутки про Чака Норриса в различных категориях.
 
