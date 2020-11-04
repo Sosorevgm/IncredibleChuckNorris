@@ -1,10 +1,11 @@
 # Incredible Chuck Norris
 
-Развлекательное приложение, показывающее шутки про Чака Норриса в различных категориях.
+Incredible Chuck Norris is a fun app that shows jokes about Texas Ranger from different categories.
 
-Ссылка на google play: https://play.google.com/store/apps/details?id=com.incredible.chuck.norris
+Google play: https://play.google.com/store/apps/details?id=com.incredible.chuck.norris
 
-Стек приложения: 
+Stack: 
+
 - MVVM
 - kotlin
 - android architecture components
