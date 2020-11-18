@@ -15,7 +15,6 @@ import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getDateString
-import com.incredible.chuck.norris.utils.getSnackBarFactError
 import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
 import com.incredible.chuck.norris.view_model.FactViewModel
 import kotlinx.android.synthetic.main.fact_layout.view.*
@@ -93,12 +92,14 @@ class FactFragment : Fragment() {
     private fun showLoadingState(view: View) {
         view.shimmer_fact_layout isNeedToShow true
         view.fact_main_layout isNeedToShow false
+        view.fact_error_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = false
     }
 
     private fun showSuccessStateFromApi(view: View, category: String, fact: FactModel) {
         view.shimmer_fact_layout isNeedToShow false
         view.fact_main_layout isNeedToShow true
+        view.fact_error_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = true
 
         val chuckIcon = ContextCompat.getDrawable(
@@ -121,6 +122,7 @@ class FactFragment : Fragment() {
     private fun showSuccessStateFromCache(view: View, category: String, fact: FactModel) {
         view.shimmer_fact_layout isNeedToShow false
         view.fact_main_layout isNeedToShow true
+        view.fact_error_layout isNeedToShow false
         view.layout_fact_fragment_share.isClickable = true
 
         val chuckIcon = ContextCompat.getDrawable(
@@ -145,16 +147,13 @@ class FactFragment : Fragment() {
     }
 
     private fun showErrorState(view: View, error: String) {
-        view.shimmer_fact_layout isNeedToShow true
+        view.shimmer_fact_layout isNeedToShow false
         view.fact_main_layout isNeedToShow false
+        view.fact_error_layout isNeedToShow true
         view.layout_fact_fragment_share.isClickable = false
         view.fact_swipe_layout.isRefreshing = false
         factViewModel.currentFact = null
-        getSnackBarFactError(
-            requireView(),
-            error,
-            requireContext()
-        ).show()
+        view.tv_fact_error.text = error
     }
 
     private fun shareFact(fact: String) {

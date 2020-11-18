@@ -13,7 +13,7 @@ class CategoryCacheImplementation(
         if (categories.isNotEmpty()) {
             return categories
         }
-        throw CategoriesCacheIsEmpty("Categories cache is empty")
+        throw CategoriesCacheIsEmpty("Categories cache is empty. Try to find a connection.")
     }
 
     suspend fun putCategories(categories: List<String>) {
