@@ -52,8 +52,8 @@ object Config {
 }
 
 object Releases {
-    const val version_code = 6
-    const val version_name = "1.4"
+    const val version_code = 7
+    const val version_name = "1.5"
 }
 
 object Kotlin {

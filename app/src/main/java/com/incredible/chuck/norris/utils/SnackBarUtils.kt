@@ -19,17 +19,3 @@ fun getSnackBarFactsFromCache(view: View, context: Context): Snackbar {
     snackBar.setActionTextColor(ContextCompat.getColor(context, R.color.snack_bar_action_text_color))
     return snackBar
 }
-
-fun getSnackBarCategoriesError(view: View, text: String, context: Context): Snackbar {
-    val snackBar = Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-    snackBar.view.background = ContextCompat.getDrawable(context, R.drawable.snack_bar_background)
-    snackBar.setActionTextColor(ContextCompat.getColor(context, R.color.snack_bar_action_text_color))
-    return snackBar
-}
-
-fun getSnackBarFactError(view: View, text: String, context: Context): Snackbar {
-    val snackBar = Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-    snackBar.view.background = ContextCompat.getDrawable(context, R.drawable.snack_bar_background)
-    snackBar.setActionTextColor(ContextCompat.getColor(context, R.color.snack_bar_action_text_color))
-    return snackBar
-}
