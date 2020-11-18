@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import com.incredible.chuck.norris.extensions.isNeedToShow
-import com.incredible.chuck.norris.utils.getSnackBarCategoriesError
 import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
@@ -72,6 +71,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     private fun showLoadingState(view: View) {
         view.rv_category_fragment isNeedToShow false
         view.iv_category_error isNeedToShow false
+        view.tv_categories_error isNeedToShow false
         view.pb_category_fragment isNeedToShow true
         stopAnimation(view.iv_category_error)
     }
@@ -83,6 +83,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     ) {
         view.pb_category_fragment isNeedToShow false
         view.iv_category_error isNeedToShow false
+        view.tv_categories_error isNeedToShow false
         view.rv_category_fragment isNeedToShow true
         stopAnimation(view.iv_category_error)
         adapter.updateCategoryList(categories)
@@ -96,6 +97,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     ) {
         view.pb_category_fragment isNeedToShow false
         view.iv_category_error isNeedToShow false
+        view.tv_categories_error isNeedToShow false
         view.rv_category_fragment isNeedToShow true
         stopAnimation(view.iv_category_error)
         adapter.updateCategoryList(categories)
@@ -110,12 +112,9 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         view.pb_category_fragment isNeedToShow false
         view.rv_category_fragment isNeedToShow false
         view.iv_category_error isNeedToShow true
+        view.tv_categories_error isNeedToShow true
         startAnimation(view.iv_category_error)
-        getSnackBarCategoriesError(
-            requireView(),
-            error,
-            requireContext()
-        ).show()
+        view.tv_categories_error.text = error
     }
 
     private fun startAnimation(view: View) {

@@ -22,7 +22,7 @@ class FactCacheImplementation(
                 randomEntity.date
             )
         }
-        throw FactCacheIsEmptyException("Cache from $category category is empty.")
+        throw FactCacheIsEmptyException("Cache from $category category is empty. Try to find a connection")
     }
 
     suspend fun putFact(fact: FactModel, category: String) =
