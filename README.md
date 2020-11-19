@@ -14,6 +14,7 @@ Stack:
 - retrofit
 - room
 - androidx navigation
+- view binding
 - glide
 - facebook shimmer
-- firebase crashlytics.
+- firebase crashlytics
