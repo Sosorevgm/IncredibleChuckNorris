@@ -27,6 +27,8 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/category_layout" />
+    <include
+        android:id="@+id/category_layout_id"
+        layout="@layout/category_layout" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
