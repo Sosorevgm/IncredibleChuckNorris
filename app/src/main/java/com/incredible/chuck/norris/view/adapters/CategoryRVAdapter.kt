@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.incredible.chuck.norris.R
-import kotlinx.android.synthetic.main.category_card_view.view.*
+import com.incredible.chuck.norris.databinding.CategoryCardViewBinding
 
 class CategoryRVAdapter(
     private var categoryList: List<String>,
@@ -36,9 +36,11 @@ class CategoryRVAdapter(
         private val listener: CategoryClickListener
     ) : RecyclerView.ViewHolder(view) {
 
+        private val binding = CategoryCardViewBinding.bind(view)
+
         fun bind(category: String) {
-            view.tv_category_text.text = category.capitalize()
-            view.cv_category_root.setOnClickListener {
+            binding.tvCategoryText.text = category.capitalize()
+            binding.cvCategoryRoot.setOnClickListener {
                 listener.onFactClick(category)
             }
         }

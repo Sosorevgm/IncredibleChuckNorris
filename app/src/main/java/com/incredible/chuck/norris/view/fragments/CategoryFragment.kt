@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
+import com.incredible.chuck.norris.databinding.FragmentCategoryBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
-import kotlinx.android.synthetic.main.category_layout.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : Fragment(), CategoryClickListener {
@@ -24,82 +23,82 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         const val CATEGORY = "category"
     }
 
+    private var _binding: FragmentCategoryBinding? = null
+    private val binding get() = _binding!!
+
     private val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_category, container, false)
+    ): View {
+        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
+
         val adapter = CategoryRVAdapter(listOf(), this)
-        root.rv_category_fragment.adapter = adapter
+        binding.categoryLayoutId.rvCategoryFragment.adapter = adapter
 
         if (categoryViewModel.currentCategories != null) {
-            showSuccessStateFromApi(root, adapter, categoryViewModel.currentCategories!!)
+            showSuccessStateFromApi(adapter, categoryViewModel.currentCategories!!)
         } else {
             categoryViewModel.fetchData()
         }
 
         categoryViewModel.screenState.observe(viewLifecycleOwner,
-            Observer<CategoryScreenState> {
+            {
                 when (it) {
-                    is CategoryScreenState.Loading -> showLoadingState(root)
+                    is CategoryScreenState.Loading -> showLoadingState()
                     is CategoryScreenState.SuccessFromApi -> showSuccessStateFromApi(
-                        root,
                         adapter,
                         it.categories
                     )
                     is CategoryScreenState.SuccessFromCache -> {
-                        showSuccessStateFromCache(root, adapter, it.categories)
+                        showSuccessStateFromCache(adapter, it.categories)
                     }
                     is CategoryScreenState.ErrorCacheIsEmpty -> showErrorState(
-                        root,
                         it.error
                     )
-                    is CategoryScreenState.Error -> showErrorState(root, it.error)
+                    is CategoryScreenState.Error -> showErrorState(it.error)
                 }
             })
 
-        root.categories_swipe_layout.setOnRefreshListener {
-            root.categories_swipe_layout.isRefreshing = false
+        binding.categoryLayoutId.categoriesSwipeLayout.setOnRefreshListener {
+            binding.categoryLayoutId.categoriesSwipeLayout.isRefreshing = false
             categoryViewModel.fetchData()
-            root.rv_category_fragment.scheduleLayoutAnimation()
+            binding.categoryLayoutId.rvCategoryFragment.scheduleLayoutAnimation()
         }
-        return root
+        return binding.root
     }
 
-    private fun showLoadingState(view: View) {
-        view.rv_category_fragment isNeedToShow false
-        view.iv_category_error isNeedToShow false
-        view.tv_categories_error isNeedToShow false
-        view.pb_category_fragment isNeedToShow true
-        stopAnimation(view.iv_category_error)
+    private fun showLoadingState() {
+        binding.categoryLayoutId.rvCategoryFragment isNeedToShow false
+        binding.categoryLayoutId.ivCategoryError isNeedToShow false
+        binding.categoryLayoutId.tvCategoriesError isNeedToShow false
+        binding.categoryLayoutId.pbCategoryFragment isNeedToShow true
+        stopAnimation()
     }
 
     private fun showSuccessStateFromApi(
-        view: View,
         adapter: CategoryRVAdapter,
         categories: List<String>
     ) {
-        view.pb_category_fragment isNeedToShow false
-        view.iv_category_error isNeedToShow false
-        view.tv_categories_error isNeedToShow false
-        view.rv_category_fragment isNeedToShow true
-        stopAnimation(view.iv_category_error)
+        binding.categoryLayoutId.pbCategoryFragment isNeedToShow false
+        binding.categoryLayoutId.ivCategoryError isNeedToShow false
+        binding.categoryLayoutId.tvCategoriesError isNeedToShow false
+        binding.categoryLayoutId.rvCategoryFragment isNeedToShow true
+        stopAnimation()
         adapter.updateCategoryList(categories)
         categoryViewModel.currentCategories = categories
     }
 
     private fun showSuccessStateFromCache(
-        view: View,
         adapter: CategoryRVAdapter,
         categories: List<String>
     ) {
-        view.pb_category_fragment isNeedToShow false
-        view.iv_category_error isNeedToShow false
-        view.tv_categories_error isNeedToShow false
-        view.rv_category_fragment isNeedToShow true
-        stopAnimation(view.iv_category_error)
+        binding.categoryLayoutId.pbCategoryFragment isNeedToShow false
+        binding.categoryLayoutId.ivCategoryError isNeedToShow false
+        binding.categoryLayoutId.tvCategoriesError isNeedToShow false
+        binding.categoryLayoutId.rvCategoryFragment isNeedToShow true
+        stopAnimation()
         adapter.updateCategoryList(categories)
         categoryViewModel.currentCategories = categories
         getSnackBarCategoriesFromCache(
@@ -108,23 +107,23 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         ).show()
     }
 
-    private fun showErrorState(view: View, error: String) {
-        view.pb_category_fragment isNeedToShow false
-        view.rv_category_fragment isNeedToShow false
-        view.iv_category_error isNeedToShow true
-        view.tv_categories_error isNeedToShow true
-        startAnimation(view.iv_category_error)
-        view.tv_categories_error.text = error
+    private fun showErrorState(error: String) {
+        binding.categoryLayoutId.pbCategoryFragment isNeedToShow false
+        binding.categoryLayoutId.rvCategoryFragment isNeedToShow false
+        binding.categoryLayoutId.ivCategoryError isNeedToShow true
+        binding.categoryLayoutId.tvCategoriesError isNeedToShow true
+        startAnimation()
+        binding.categoryLayoutId.tvCategoriesError.text = error
     }
 
-    private fun startAnimation(view: View) {
+    private fun startAnimation() {
         val animation =
             AnimationUtils.loadAnimation(requireContext(), R.anim.chuck_exception_icon_rotate)
-        view.iv_category_error.startAnimation(animation)
+        binding.categoryLayoutId.ivCategoryError.startAnimation(animation)
     }
 
-    private fun stopAnimation(view: View) {
-        view.iv_category_error.animation = null
+    private fun stopAnimation() {
+        binding.categoryLayoutId.ivCategoryError.animation = null
     }
 
     override fun onFactClick(category: String) {
@@ -133,5 +132,10 @@ class CategoryFragment : Fragment(), CategoryClickListener {
                 CATEGORY, category
             )
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
