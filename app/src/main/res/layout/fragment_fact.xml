@@ -66,5 +66,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/fact_layout" />
+    <include
+        android:id="@+id/fact_layout_id"
+        layout="@layout/fact_layout" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

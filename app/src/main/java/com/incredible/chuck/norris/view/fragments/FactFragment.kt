@@ -7,18 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
+import com.incredible.chuck.norris.databinding.FragmentFactBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.utils.getDateString
 import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
 import com.incredible.chuck.norris.view_model.FactViewModel
-import kotlinx.android.synthetic.main.fact_layout.view.*
-import kotlinx.android.synthetic.main.fragment_fact.view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,79 +26,81 @@ class FactFragment : Fragment() {
         const val CATEGORY = "category"
     }
 
+    private var _binding: FragmentFactBinding? = null
+    private val binding get() = _binding!!
+
     private val factViewModel: FactViewModel by viewModel()
     private val imageLoader: ImageLoader by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_fact, container, false)
+    ): View {
+        _binding = FragmentFactBinding.inflate(inflater, container, false)
+
         val category = arguments?.getString(CATEGORY)
 
         if (factViewModel.currentFact != null) {
-            showSuccessStateFromApi(root, category!!, factViewModel.currentFact!!)
+            showSuccessStateFromApi(category!!, factViewModel.currentFact!!)
         } else {
             category?.let {
-                root.tv_fact_category.text = category
+                binding.factLayoutId.tvFactCategory.text = category
                 factViewModel.fetchData(it)
             }
         }
 
-        factViewModel.screenState.observe(viewLifecycleOwner, Observer<FactScreenState> {
+        factViewModel.screenState.observe(viewLifecycleOwner, {
             when (it) {
-                is FactScreenState.Loading -> showLoadingState(root)
+                is FactScreenState.Loading -> showLoadingState()
                 is FactScreenState.SuccessFromApi -> showSuccessStateFromApi(
-                    root,
                     category!!,
                     it.fact
                 )
                 is FactScreenState.SuccessFromCache -> showSuccessStateFromCache(
-                    root,
                     category!!,
                     it.fact
                 )
-                is FactScreenState.ErrorCacheIsEmpty -> showErrorState(root, it.error)
-                is FactScreenState.Error -> showErrorState(root, it.error)
+                is FactScreenState.ErrorCacheIsEmpty -> showErrorState(it.error)
+                is FactScreenState.Error -> showErrorState(it.error)
             }
         })
 
-        root.layout_fact_fragment_arrow_back.setOnClickListener {
+        binding.layoutFactFragmentArrowBack.setOnClickListener {
             factViewModel.currentFact = null
             findNavController().popBackStack()
         }
 
-        root.layout_fact_fragment_share.setOnClickListener {
-            val fact = root.tv_fact_text.text.toString()
+        binding.layoutFactFragmentShare.setOnClickListener {
+            val fact = binding.factLayoutId.tvFactText.text.toString()
             if (fact.isNotEmpty()) {
                 shareFact(fact)
             }
         }
 
-        root.fact_swipe_layout.setOnRefreshListener {
+        binding.factLayoutId.factSwipeLayout.setOnRefreshListener {
             factViewModel.updateFact(category!!)
-            factViewModel.isProgressbarActive.observe(viewLifecycleOwner, Observer<Boolean> {
+            factViewModel.isProgressbarActive.observe(viewLifecycleOwner, {
                 when (it) {
-                    true -> root.fact_swipe_layout.isRefreshing = true
-                    false -> root.fact_swipe_layout.isRefreshing = false
+                    true -> binding.factLayoutId.factSwipeLayout.isRefreshing = true
+                    false -> binding.factLayoutId.factSwipeLayout.isRefreshing = false
                 }
             })
         }
-        return root
+        return binding.root
     }
 
-    private fun showLoadingState(view: View) {
-        view.shimmer_fact_layout isNeedToShow true
-        view.fact_main_layout isNeedToShow false
-        view.fact_error_layout isNeedToShow false
-        view.layout_fact_fragment_share.isClickable = false
+    private fun showLoadingState() {
+        binding.factLayoutId.shimmerFactLayout isNeedToShow true
+        binding.factLayoutId.factMainLayout isNeedToShow false
+        binding.factLayoutId.factErrorLayout isNeedToShow false
+        binding.layoutFactFragmentShare.isClickable = false
     }
 
-    private fun showSuccessStateFromApi(view: View, category: String, fact: FactModel) {
-        view.shimmer_fact_layout isNeedToShow false
-        view.fact_main_layout isNeedToShow true
-        view.fact_error_layout isNeedToShow false
-        view.layout_fact_fragment_share.isClickable = true
+    private fun showSuccessStateFromApi(category: String, fact: FactModel) {
+        binding.factLayoutId.shimmerFactLayout isNeedToShow false
+        binding.factLayoutId.factMainLayout isNeedToShow true
+        binding.factLayoutId.factErrorLayout isNeedToShow false
+        binding.layoutFactFragmentShare.isClickable = true
 
         val chuckIcon = ContextCompat.getDrawable(
             requireContext(),
@@ -108,22 +108,22 @@ class FactFragment : Fragment() {
         )
 
         if (chuckIcon != null) {
-            imageLoader.loadImageFromResources(chuckIcon, view.iv_fact_icon)
+            imageLoader.loadImageFromResources(chuckIcon, binding.factLayoutId.ivFactIcon)
         } else {
-            imageLoader.loadImageFromUrl(fact.iconUrl, view.iv_fact_icon)
+            imageLoader.loadImageFromUrl(fact.iconUrl, binding.factLayoutId.ivFactIcon)
         }
 
-        view.tv_fact_category.text = category.capitalize()
-        view.tv_fact_text.text = fact.fact
-        view.tv_fact_date.text = getDateString(fact.date)
+        binding.factLayoutId.tvFactCategory.text = category.capitalize()
+        binding.factLayoutId.tvFactText.text = fact.fact
+        binding.factLayoutId.tvFactDate.text = getDateString(fact.date)
         factViewModel.currentFact = fact
     }
 
-    private fun showSuccessStateFromCache(view: View, category: String, fact: FactModel) {
-        view.shimmer_fact_layout isNeedToShow false
-        view.fact_main_layout isNeedToShow true
-        view.fact_error_layout isNeedToShow false
-        view.layout_fact_fragment_share.isClickable = true
+    private fun showSuccessStateFromCache(category: String, fact: FactModel) {
+        binding.factLayoutId.shimmerFactLayout isNeedToShow false
+        binding.factLayoutId.factMainLayout isNeedToShow true
+        binding.factLayoutId.factErrorLayout isNeedToShow false
+        binding.layoutFactFragmentShare.isClickable = true
 
         val chuckIcon = ContextCompat.getDrawable(
             requireContext(),
@@ -131,14 +131,14 @@ class FactFragment : Fragment() {
         )
 
         if (chuckIcon != null) {
-            imageLoader.loadImageFromResources(chuckIcon, view.iv_fact_icon)
+            imageLoader.loadImageFromResources(chuckIcon, binding.factLayoutId.ivFactIcon)
         } else {
-            imageLoader.loadImageFromUrl(fact.iconUrl, view.iv_fact_icon)
+            imageLoader.loadImageFromUrl(fact.iconUrl, binding.factLayoutId.ivFactIcon)
         }
 
-        view.tv_fact_category.text = category.capitalize()
-        view.tv_fact_text.text = fact.fact
-        view.tv_fact_date.text = getDateString(fact.date)
+        binding.factLayoutId.tvFactCategory.text = category.capitalize()
+        binding.factLayoutId.tvFactText.text = fact.fact
+        binding.factLayoutId.tvFactDate.text = getDateString(fact.date)
         factViewModel.currentFact = fact
         getSnackBarFactsFromCache(
             requireView(),
@@ -146,14 +146,14 @@ class FactFragment : Fragment() {
         ).show()
     }
 
-    private fun showErrorState(view: View, error: String) {
-        view.shimmer_fact_layout isNeedToShow false
-        view.fact_main_layout isNeedToShow false
-        view.fact_error_layout isNeedToShow true
-        view.layout_fact_fragment_share.isClickable = false
-        view.fact_swipe_layout.isRefreshing = false
+    private fun showErrorState(error: String) {
+        binding.factLayoutId.shimmerFactLayout isNeedToShow false
+        binding.factLayoutId.factMainLayout isNeedToShow false
+        binding.factLayoutId.factErrorLayout isNeedToShow true
+        binding.layoutFactFragmentShare.isClickable = false
+        binding.factLayoutId.factSwipeLayout.isRefreshing = false
         factViewModel.currentFact = null
-        view.tv_fact_error.text = error
+        binding.factLayoutId.tvFactError.text = error
     }
 
     private fun shareFact(fact: String) {
@@ -164,5 +164,10 @@ class FactFragment : Fragment() {
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
