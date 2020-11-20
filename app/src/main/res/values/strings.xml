@@ -15,9 +15,4 @@
     <string name="onboarding_previous">PREVIOUS</string>
     <string name="onboarding_got_it">GOT IT</string>
 
-    <!-- SharedPreference keys -->
-
-    <string name="onboarding_preference_key">onboarding_screen</string>
-    <string name="onboarding_flag_key">onboarding_flag_value</string>
-
 </resources>

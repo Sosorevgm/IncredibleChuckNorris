@@ -6,32 +6,18 @@ import com.incredible.chuck.norris.data.category_datasource.CategoryCacheImpleme
 import com.incredible.chuck.norris.data.category_datasource.CategoryRetrofitImplementation
 import com.incredible.chuck.norris.data.fact_datasource.FactCacheImplementation
 import com.incredible.chuck.norris.data.fact_datasource.FactRetrofitImplementation
-import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
-import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.network.AndroidNetworkStatus
 import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.repository.CategoriesRepository
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.room.AppDatabase
-import com.incredible.chuck.norris.view_model.CategoryViewModel
-import com.incredible.chuck.norris.view_model.FactViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.sosorevgm.profanityfilter.ProfanityFilter
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val application = module {
-
-    single<ImageLoader> {
-        GlideImageLoader(context = androidContext())
-    }
-
-    single {
-        ProfanityFilter(get())
-    }
+val repositories = module {
 
     single<NetworkStatus> {
         AndroidNetworkStatus(context = androidContext())
@@ -72,15 +58,5 @@ val application = module {
 
     single {
         CategoriesRepository(retrofit = get(), cache = get())
-    }
-}
-
-val viewModelDependency = module {
-    viewModel {
-        CategoryViewModel(network = get(), repository = get())
-    }
-
-    viewModel {
-        FactViewModel(networkStatus = get(), repository = get(), profanityFilter = get())
     }
 }

@@ -1,7 +1,7 @@
 package com.incredible.chuck.norris.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.incredible.chuck.norris.R
 
 class MainActivity : AppCompatActivity() {

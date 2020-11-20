@@ -1,6 +1,5 @@
 package com.incredible.chuck.norris.view.activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,12 @@ import com.incredible.chuck.norris.view.adapters.OnboardingViewPagerAdapter
 import com.incredible.chuck.norris.view.fragments.OnboardingFirstFragment
 import com.incredible.chuck.norris.view.fragments.OnboardingSecondFragment
 import com.incredible.chuck.norris.view.fragments.OnboardingThirdFragment
+import com.incredible.chuck.norris.view_model.OnboardingViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnboardingActivity : AppCompatActivity() {
+
+    private val viewModel: OnboardingViewModel by viewModel()
 
     private lateinit var binding: ActivityOnboardingBinding
 
@@ -82,15 +85,7 @@ class OnboardingActivity : AppCompatActivity() {
                     true
                 )
             } else {
-                val sharedPreferences = getSharedPreferences(
-                    getString(R.string.onboarding_preference_key),
-                    Context.MODE_PRIVATE
-                )
-
-                with(sharedPreferences.edit()) {
-                    putBoolean(getString(R.string.onboarding_flag_key), true)
-                    apply()
-                }
+                viewModel.setOnboardingFlag()
 
                 val mainIntent = Intent(this, MainActivity::class.java)
                 startActivity(mainIntent)
