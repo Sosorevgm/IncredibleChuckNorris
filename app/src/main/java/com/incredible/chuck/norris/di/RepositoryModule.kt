@@ -11,6 +11,8 @@ import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.repository.CategoriesRepository
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.room.AppDatabase
+import com.incredible.chuck.norris.utils.Constants.APP_DATABASE
+import com.incredible.chuck.norris.utils.Constants.CHUCK_BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -25,7 +27,7 @@ val repositories = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://api.chucknorris.io/")
+            .baseUrl(CHUCK_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory.Companion())
             .build()
@@ -41,7 +43,7 @@ val repositories = module {
     }
 
     single {
-        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "app_database").build()
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, APP_DATABASE).build()
     }
 
     single {
@@ -53,10 +55,10 @@ val repositories = module {
     }
 
     single {
-        FactRepository(retrofit = get(), cache = get())
+        FactRepository(retrofit = get(), cache = get(), network = get(), profanityFilter = get())
     }
 
     single {
-        CategoriesRepository(retrofit = get(), cache = get())
+        CategoriesRepository(network = get(), retrofit = get(), cache = get())
     }
 }

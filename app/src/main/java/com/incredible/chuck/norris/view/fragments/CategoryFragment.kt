@@ -11,6 +11,7 @@ import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import com.incredible.chuck.norris.databinding.FragmentCategoryBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
+import com.incredible.chuck.norris.utils.Constants.CATEGORY
 import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
@@ -19,51 +20,43 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : Fragment(), CategoryClickListener {
 
-    companion object {
-        const val CATEGORY = "category"
-    }
+    private val viewModel: CategoryViewModel by viewModel()
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
-
-    private val categoryViewModel: CategoryViewModel by viewModel()
+    private lateinit var adapter: CategoryRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
-
-        val adapter = CategoryRVAdapter(listOf(), this)
+        adapter = CategoryRVAdapter(listOf(), this)
         binding.categoryLayoutId.rvCategoryFragment.adapter = adapter
 
-        if (categoryViewModel.currentCategories != null) {
-            showSuccessStateFromApi(adapter, categoryViewModel.currentCategories!!)
+        if (viewModel.currentCategories != null) {
+            showSuccessState(viewModel.currentCategories!!)
         } else {
-            categoryViewModel.fetchData()
+            viewModel.fetchData()
         }
 
-        categoryViewModel.screenState.observe(viewLifecycleOwner,
+        viewModel.screenState.observe(viewLifecycleOwner,
             {
                 when (it) {
                     is CategoryScreenState.Loading -> showLoadingState()
-                    is CategoryScreenState.SuccessFromApi -> showSuccessStateFromApi(
-                        adapter,
-                        it.categories
-                    )
+                    is CategoryScreenState.SuccessFromApi -> showSuccessState(it.categories)
                     is CategoryScreenState.SuccessFromCache -> {
-                        showSuccessStateFromCache(adapter, it.categories)
+                        showSuccessState(it.categories)
+                        getSnackBarCategoriesFromCache(requireView(), requireContext()).show()
                     }
-                    is CategoryScreenState.ErrorCacheIsEmpty -> showErrorState(
-                        it.error
-                    )
+                    is CategoryScreenState.ErrorCacheIsEmpty -> showErrorState(it.error)
                     is CategoryScreenState.Error -> showErrorState(it.error)
                 }
             })
 
         binding.categoryLayoutId.categoriesSwipeLayout.setOnRefreshListener {
             binding.categoryLayoutId.categoriesSwipeLayout.isRefreshing = false
-            categoryViewModel.fetchData()
+            viewModel.fetchData()
             binding.categoryLayoutId.rvCategoryFragment.scheduleLayoutAnimation()
         }
         return binding.root
@@ -77,8 +70,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         stopAnimation()
     }
 
-    private fun showSuccessStateFromApi(
-        adapter: CategoryRVAdapter,
+    private fun showSuccessState(
         categories: List<String>
     ) {
         binding.categoryLayoutId.pbCategoryFragment isNeedToShow false
@@ -87,24 +79,6 @@ class CategoryFragment : Fragment(), CategoryClickListener {
         binding.categoryLayoutId.rvCategoryFragment isNeedToShow true
         stopAnimation()
         adapter.updateCategoryList(categories)
-        categoryViewModel.currentCategories = categories
-    }
-
-    private fun showSuccessStateFromCache(
-        adapter: CategoryRVAdapter,
-        categories: List<String>
-    ) {
-        binding.categoryLayoutId.pbCategoryFragment isNeedToShow false
-        binding.categoryLayoutId.ivCategoryError isNeedToShow false
-        binding.categoryLayoutId.tvCategoriesError isNeedToShow false
-        binding.categoryLayoutId.rvCategoryFragment isNeedToShow true
-        stopAnimation()
-        adapter.updateCategoryList(categories)
-        categoryViewModel.currentCategories = categories
-        getSnackBarCategoriesFromCache(
-            requireView(),
-            requireContext()
-        ).show()
     }
 
     private fun showErrorState(error: String) {
