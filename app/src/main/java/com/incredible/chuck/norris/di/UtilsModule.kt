@@ -13,6 +13,6 @@ val utils = module {
     }
 
     single {
-        ProfanityFilter(get())
+        ProfanityFilter(context = get())
     }
 }

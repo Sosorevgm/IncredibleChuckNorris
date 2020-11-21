@@ -20,10 +20,10 @@ val viewModels = module {
     }
 
     viewModel {
-        CategoryViewModel(network = get(), repository = get())
+        CategoryViewModel(repository = get())
     }
 
     viewModel {
-        FactViewModel(networkStatus = get(), repository = get(), profanityFilter = get())
+        FactViewModel(repository = get())
     }
 }
