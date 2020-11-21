@@ -3,26 +3,28 @@ package com.incredible.chuck.norris.data.fact_datasource
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.data.room.FactEntity
-import com.incredible.chuck.norris.exceptions.FactCacheIsEmptyException
+import com.incredible.chuck.norris.data.screen_state.FactScreenState
 
 class FactCacheImplementation(
     private val room: AppDatabase
 ) {
 
-    suspend fun getRandomFactByCategory(category: String): FactModel {
+    suspend fun getRandomFactByCategory(category: String): FactScreenState {
         val entities = room.appDao.getAllFactsByCategory(category)
-        if (entities.isNotEmpty()) {
+        return if (entities.isNotEmpty()) {
             val randomValue = (entities.indices).random()
             val randomEntity = entities[randomValue]
-            return FactModel(
+            val fact = FactModel(
                 randomEntity.id,
                 randomEntity.url,
                 randomEntity.iconUrl,
                 randomEntity.value,
                 randomEntity.date
             )
+            FactScreenState.SuccessFromCache(fact)
+        } else {
+            FactScreenState.ErrorCacheIsEmpty("Cache from $category category is empty. Try to find a connection")
         }
-        throw FactCacheIsEmptyException("Cache from $category category is empty. Try to find a connection")
     }
 
     suspend fun putFact(fact: FactModel, category: String) =
