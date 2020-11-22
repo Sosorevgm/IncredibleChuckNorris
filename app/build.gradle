@@ -63,6 +63,8 @@ dependencies {
     implementation Glide.glide
     annotationProcessor Glide.glide_compiler
 
+    implementation Timber.timber
+
     implementation Shimmer.shimmer
 
     implementation Filter.profanity_filter

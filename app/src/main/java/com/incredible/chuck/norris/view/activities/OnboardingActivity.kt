@@ -9,9 +9,6 @@ import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.databinding.ActivityOnboardingBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.view.adapters.OnboardingViewPagerAdapter
-import com.incredible.chuck.norris.view.fragments.OnboardingFirstFragment
-import com.incredible.chuck.norris.view.fragments.OnboardingSecondFragment
-import com.incredible.chuck.norris.view.fragments.OnboardingThirdFragment
 import com.incredible.chuck.norris.view_model.OnboardingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,13 +23,7 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragments = listOf(
-            OnboardingFirstFragment(),
-            OnboardingSecondFragment(),
-            OnboardingThirdFragment()
-        )
-
-        val adapter = OnboardingViewPagerAdapter(fragments, supportFragmentManager, lifecycle)
+        val adapter = OnboardingViewPagerAdapter(supportFragmentManager, lifecycle)
         binding.onboardingViewPager.adapter = adapter
 
         TabLayoutMediator(binding.onboardintTabsLayout, binding.onboardingViewPager) { tab, _ ->

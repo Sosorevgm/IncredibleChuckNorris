@@ -1,17 +1,16 @@
 package com.incredible.chuck.norris.view.adapters
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.incredible.chuck.norris.view.fragments.OnboardingFragment
 
 class OnboardingViewPagerAdapter(
-    private val fragments: List<Fragment>,
     fm: FragmentManager,
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fm, lifecycle) {
 
-    override fun getItemCount() = fragments.size
+    override fun getItemCount() = 3
 
-    override fun createFragment(position: Int) = fragments[position]
+    override fun createFragment(position: Int) = OnboardingFragment.getInstance(position)
 }
