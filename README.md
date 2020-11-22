@@ -18,3 +18,4 @@ Stack:
 - glide
 - facebook shimmer
 - firebase crashlytics
+- timber
