@@ -28,6 +28,8 @@ object Versions {
     const val glide = "4.11.0"
     const val glide_compiler = "4.11.0"
 
+    const val timber = "4.7.1"
+
     const val shimmer = "0.5.0"
 
     const val profanity_filter = "1.0.0"
@@ -101,6 +103,10 @@ object Room {
 object Glide {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide_compiler}"
+}
+
+object Timber {
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
 
 object Shimmer {
