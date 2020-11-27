@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/category_fragment_navigation">
+    app:startDestination="@id/category_fragment_navigation"
+    >
 
     <fragment
         android:id="@+id/category_fragment_navigation"
         android:name="com.incredible.chuck.norris.view.fragments.CategoryFragment"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category"
+        />
 
     <fragment
         android:id="@+id/fact_fragment_navigation"
         android:name="com.incredible.chuck.norris.view.fragments.FactFragment"
-        tools:layout="@layout/fragment_fact" />
+        tools:layout="@layout/fragment_fact"
+        />
 
 </navigation>
