@@ -26,6 +26,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildFeatures {
         viewBinding true
     }
@@ -50,6 +55,8 @@ dependencies {
     implementation Retrofit.retrofit
     implementation Retrofit.gson_converter
     implementation Retrofit.coroutines_adapter
+
+    implementation Okhttp.logging_interceptor
 
     implementation Koin.android
     implementation Koin.view_model

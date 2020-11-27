@@ -5,7 +5,7 @@ object Versions {
     const val appcompat = "1.1.0"
     const val constraint_layout = "1.1.3"
     const val swipe_to_refresh = "1.1.0"
-    const val view_pager_2 ="1.0.0"
+    const val view_pager_2 = "1.0.0"
     const val material = "1.2.1"
 
     const val navigation_fragment = "2.3.0"
@@ -14,9 +14,11 @@ object Versions {
     const val coroutines_core = "1.3.7"
     const val coroutines_android = "1.3.4"
 
-    const val retrofit = "2.6.0"
+    const val retrofit = "2.9.0"
     const val retrofit_gson_converter = "2.6.0"
     const val retrofit_coroutines_adapter = "0.9.2"
+
+    const val logging_interceptor = "4.9.0"
 
     const val koin_android = "2.1.6"
     const val koin_view_model = "2.1.6"
@@ -85,6 +87,10 @@ object Retrofit {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit_gson_converter}"
     const val coroutines_adapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofit_coroutines_adapter}"
+}
+
+object Okhttp {
+    const val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
 }
 
 object Koin {
