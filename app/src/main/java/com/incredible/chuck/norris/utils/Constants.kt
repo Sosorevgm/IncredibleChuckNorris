@@ -9,4 +9,6 @@ object Constants {
 
     const val ONBOARDING_PREFERENCES = "com.incredible.chuck.norris.onboarding.preferences"
     const val ONBOARDING_FLAG = "com.incredible.chuck.norris.onboarding.flag"
+
+    const val LOGGING_INTERCEPTOR = "logging.interceptor"
 }
