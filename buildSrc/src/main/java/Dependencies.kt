@@ -8,8 +8,7 @@ object Versions {
     const val view_pager_2 = "1.0.0"
     const val material = "1.2.1"
 
-    const val navigation_fragment = "2.3.0"
-    const val navigation_ui_ktx = "2.3.0"
+    const val cicerone = "5.0.0"
 
     const val coroutines_core = "1.3.7"
     const val coroutines_android = "1.3.4"
@@ -74,8 +73,7 @@ object Design {
 }
 
 object Navigation {
-    const val fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_fragment}"
-    const val ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation_ui_ktx}"
+    const val cicerone = "ru.terrakok.cicerone:cicerone:${Versions.cicerone}"
 }
 
 object Coroutines {
