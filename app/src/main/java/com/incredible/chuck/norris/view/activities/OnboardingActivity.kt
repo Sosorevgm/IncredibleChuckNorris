@@ -1,6 +1,5 @@
 package com.incredible.chuck.norris.view.activities
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
@@ -8,6 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.databinding.ActivityOnboardingBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
+import com.incredible.chuck.norris.navigation.Screens
 import com.incredible.chuck.norris.view.adapters.OnboardingViewPagerAdapter
 import com.incredible.chuck.norris.view_model.OnboardingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -78,8 +78,7 @@ class OnboardingActivity : AppCompatActivity() {
             } else {
                 viewModel.setOnboardingFlag()
 
-                val mainIntent = Intent(this, MainActivity::class.java)
-                startActivity(mainIntent)
+                startActivity(Screens.MainScreen().getActivityIntent(this))
                 finish()
             }
         }
