@@ -1,8 +1,8 @@
 package com.incredible.chuck.norris.view.activities
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.incredible.chuck.norris.navigation.Screens
 import com.incredible.chuck.norris.view_model.SplashViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,14 +20,12 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startMainActivity() {
-        val mainIntent = Intent(this, MainActivity::class.java)
-        startActivity(mainIntent)
+        startActivity(Screens.MainScreen().getActivityIntent(this))
         finish()
     }
 
     private fun startOnboardingActivity() {
-        val onboardingIntent = Intent(this, OnboardingActivity::class.java)
-        startActivity(onboardingIntent)
+        startActivity(Screens.OnboardingScreen().getActivityIntent(this))
         finish()
     }
 }

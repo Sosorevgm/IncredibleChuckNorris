@@ -15,7 +15,7 @@ class IncredibleChuckNorrisApp : Application() {
 
         startKoin {
             androidContext(this@IncredibleChuckNorrisApp)
-            modules(listOf(preferences, repositories, utils, viewModels))
+            modules(listOf(preferences, repositories, utils, viewModels, navigation))
         }
     }
 }

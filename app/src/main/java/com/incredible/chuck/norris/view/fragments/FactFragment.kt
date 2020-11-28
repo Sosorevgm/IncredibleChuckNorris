@@ -1,30 +1,39 @@
 package com.incredible.chuck.norris.view.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.image_datasource.ImageLoader
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.databinding.FragmentFactBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
+import com.incredible.chuck.norris.navigation.Screens
 import com.incredible.chuck.norris.utils.Constants.CATEGORY
 import com.incredible.chuck.norris.utils.getDateString
 import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
 import com.incredible.chuck.norris.view_model.FactViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.terrakok.cicerone.Router
 
 class FactFragment : Fragment() {
 
+    companion object {
+        fun getInstance(category: String) = FactFragment().apply {
+            arguments = Bundle().apply {
+                putString(CATEGORY, category)
+            }
+        }
+    }
+
     private val factViewModel: FactViewModel by viewModel()
     private val imageLoader: ImageLoader by inject()
+    private val router: Router by inject()
 
     private var _binding: FragmentFactBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +69,7 @@ class FactFragment : Fragment() {
         })
 
         binding.layoutFactFragmentArrowBack.setOnClickListener {
-            findNavController().popBackStack()
+            router.exit()
         }
 
         binding.layoutFactFragmentShare.setOnClickListener {
@@ -123,13 +132,10 @@ class FactFragment : Fragment() {
     }
 
     private fun shareFact(fact: String) {
-        val sendIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, fact + getString(R.string.google_play_link))
-            type = "text/plain"
-        }
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
+        startActivity(
+            Screens.ShareScreen(fact + getString(R.string.google_play_link))
+                .getActivityIntent(requireContext())
+        )
     }
 
     override fun onDestroy() {
