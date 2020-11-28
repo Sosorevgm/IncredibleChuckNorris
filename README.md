@@ -13,7 +13,7 @@ Stack:
 - coroutines
 - retrofit
 - room
-- androidx navigation
+- cicerone
 - view binding
 - glide
 - facebook shimmer
