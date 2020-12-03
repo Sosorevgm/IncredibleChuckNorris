@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".view.activities.OnboardingActivity">
+    tools:context=".view.activities.OnboardingActivity"
+    >
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/onboarding_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <LinearLayout
         android:id="@+id/onboarding_layout_previous"
@@ -21,20 +24,23 @@
         android:orientation="horizontal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/arrow_previous_icon" />
+            android:src="@drawable/arrow_previous_icon"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/onboarding_previous"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            />
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -46,7 +52,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tabIndicatorHeight="0dp" />
+        app:tabIndicatorHeight="0dp"
+        />
 
     <LinearLayout
         android:id="@+id/onboarding_layout_next"
@@ -56,7 +63,8 @@
         android:layout_marginBottom="60dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/onboarding_tv_next"
@@ -65,13 +73,15 @@
             android:layout_gravity="center"
             android:text="@string/onboarding_next"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:src="@drawable/arrow_next_icon" />
+            android:src="@drawable/arrow_next_icon"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

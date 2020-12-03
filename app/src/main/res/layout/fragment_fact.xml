@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.FactFragment">
+    tools:context=".view.fragments.FactFragment"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
-        style="@style/AppBarStyle">
+        style="@style/AppBarStyle"
+        >
 
         <androidx.appcompat.widget.Toolbar style="@style/ToolBarStyle">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_fact_fragment_arrow_back"
@@ -22,7 +26,8 @@
                     android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_fact_fragment_arrow_back"
@@ -31,7 +36,8 @@
                         android:src="@drawable/arrow_back_icon_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -42,7 +48,8 @@
                     android:text="@string/categories"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/layout_fact_fragment_arrow_back"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_fact_fragment_share"
@@ -50,7 +57,8 @@
                     android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_fact_fragment_share"
@@ -59,7 +67,8 @@
                         android:src="@drawable/share_icon_white_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -68,5 +77,6 @@
 
     <include
         android:id="@+id/fact_layout_id"
-        layout="@layout/fact_layout" />
+        layout="@layout/fact_layout"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
