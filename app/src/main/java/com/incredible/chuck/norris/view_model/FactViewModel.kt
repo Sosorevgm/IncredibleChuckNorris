@@ -4,19 +4,22 @@ import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
+import com.incredible.chuck.norris.navigation.Screens
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.terrakok.cicerone.Router
 
 class FactViewModel(
-    private val repository: FactRepository
+    private val repository: FactRepository,
+    private val router: Router
 ) : BaseViewModel() {
 
+    companion object {
+        private const val FACT_DELAY = 500L
+    }
 
     val screenState: MutableLiveData<FactScreenState> by lazy {
         MutableLiveData<FactScreenState>()
-    }
-
-    val isProgressbarActive: MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
     }
 
     var currentFact: FactModel? = null
@@ -24,6 +27,7 @@ class FactViewModel(
     fun fetchData(category: String) {
         screenState.value = FactScreenState.Loading
         coroutineScope.launch {
+            delay(FACT_DELAY)
             val newScreenState = repository.getFact(category)
             screenState.value = newScreenState
             if (newScreenState is FactScreenState.SuccessFromApi) {
@@ -36,18 +40,21 @@ class FactViewModel(
 
     fun updateFact(category: String) {
         screenState.value = FactScreenState.Loading
-        isProgressbarActive.value = true
 
         coroutineScope.launch {
+            delay(FACT_DELAY)
             val newScreenState = repository.getFact(category)
             screenState.value = newScreenState
-            isProgressbarActive.value = false
             if (newScreenState is FactScreenState.SuccessFromApi) {
                 currentFact = newScreenState.fact
             } else if (newScreenState is FactScreenState.SuccessFromCache) {
                 currentFact = newScreenState.fact
             }
         }
+    }
+
+    fun shareFact(shareMessage: String) {
+        router.navigateTo(Screens.ShareScreen(shareMessage))
     }
 
     override fun handleError(error: Throwable) {

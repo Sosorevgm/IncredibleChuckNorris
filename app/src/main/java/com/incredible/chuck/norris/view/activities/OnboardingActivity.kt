@@ -76,8 +76,7 @@ class OnboardingActivity : AppCompatActivity() {
                     true
                 )
             } else {
-                viewModel.setOnboardingFlag()
-
+                viewModel.finishOnboarding()
                 startActivity(Screens.MainScreen().getActivityIntent(this))
                 finish()
             }

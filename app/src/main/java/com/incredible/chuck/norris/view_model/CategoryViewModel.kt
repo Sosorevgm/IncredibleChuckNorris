@@ -3,10 +3,13 @@ package com.incredible.chuck.norris.view_model
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.repository.CategoriesRepository
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
+import com.incredible.chuck.norris.navigation.Screens
 import kotlinx.coroutines.launch
+import ru.terrakok.cicerone.Router
 
 class CategoryViewModel(
-    private val repository: CategoriesRepository
+    private val repository: CategoriesRepository,
+    private val router: Router
 ) : BaseViewModel() {
 
     val screenState: MutableLiveData<CategoryScreenState> by lazy {
@@ -27,6 +30,10 @@ class CategoryViewModel(
                 currentCategories = newScreenState.categories
             }
         }
+    }
+
+    fun factClicked(category: String) {
+        router.navigateTo(Screens.FactScreen(category))
     }
 
     override fun handleError(error: Throwable) {
