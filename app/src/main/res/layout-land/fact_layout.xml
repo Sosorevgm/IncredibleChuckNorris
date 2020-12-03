@@ -48,7 +48,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/shimmer_tv_fact_text_one"
-                    android:layout_width="260dp"
+                    android:layout_width="520dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
@@ -59,7 +59,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/shimmer_tv_fact_text_two"
-                    android:layout_width="260dp"
+                    android:layout_width="520dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
@@ -115,13 +115,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginEnd="16dp"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:maxWidth="540dp"
                 app:layout_constraintStart_toEndOf="@+id/iv_fact_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_fact_category"
-                tools:text="barry chuck once said: paul chuckle is a dick but barry chuckle didn't realise that paul was Chuck Norris in disguise then, a week later paul killed techno viking by mistake and Chuck Norris destroyed royal mail, then killed the mexicans who wanted a fight the moral of the story is joe morris likes Chuck Norris and barry chuckle, because sometimes Paul's just not enough!"
+                tools:text="Small text d: paul chuckle is a dick but barry chuckle didn't realise that paul was Chuck Norris in disguise then, a week later paul killed techno viking by mistake and Chuck Norris destroyed royal mail, then killed the mexicans who wanted a fight the moral of the story is joe morris likes Chuck Norris and barry chuckle, because sometimes Paul's just not enough!"
                 />
+
+<!--            d: paul chuckle is a dick but barry chuckle didn't realise that paul was Chuck Norris in disguise then, a week later paul killed techno viking by mistake and Chuck Norris destroyed royal mail, then killed the mexicans who wanted a fight the moral of the story is joe morris likes Chuck Norris and barry chuckle, because sometimes Paul's just not enough!-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_fact_date"
