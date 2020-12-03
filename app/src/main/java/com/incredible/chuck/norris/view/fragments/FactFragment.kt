@@ -12,7 +12,6 @@ import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
 import com.incredible.chuck.norris.databinding.FragmentFactBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
-import com.incredible.chuck.norris.navigation.Screens
 import com.incredible.chuck.norris.utils.Constants.CATEGORY
 import com.incredible.chuck.norris.utils.getDateString
 import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
@@ -31,7 +30,7 @@ class FactFragment : Fragment() {
         }
     }
 
-    private val factViewModel: FactViewModel by viewModel()
+    private val viewModel: FactViewModel by viewModel()
     private val imageLoader: ImageLoader by inject()
     private val router: Router by inject()
 
@@ -46,16 +45,16 @@ class FactFragment : Fragment() {
 
         val category = arguments?.getString(CATEGORY)
 
-        if (factViewModel.currentFact != null) {
-            showSuccessState(category!!, factViewModel.currentFact!!)
+        if (viewModel.currentFact != null) {
+            showSuccessState(category!!, viewModel.currentFact!!)
         } else {
             category?.let {
                 binding.factLayoutId.tvFactCategory.text = category
-                factViewModel.fetchData(it)
+                viewModel.fetchData(it)
             }
         }
 
-        factViewModel.screenState.observe(viewLifecycleOwner, {
+        viewModel.screenState.observe(viewLifecycleOwner, {
             when (it) {
                 is FactScreenState.Loading -> showLoadingState()
                 is FactScreenState.SuccessFromApi -> showSuccessState(category!!, it.fact)
@@ -75,18 +74,14 @@ class FactFragment : Fragment() {
         binding.layoutFactFragmentShare.setOnClickListener {
             val fact = binding.factLayoutId.tvFactText.text.toString()
             if (fact.isNotEmpty()) {
-                shareFact(fact)
+                val message = "$fact ${getString(R.string.google_play_link)}"
+                viewModel.shareFact(message)
             }
         }
 
         binding.factLayoutId.factSwipeLayout.setOnRefreshListener {
-            factViewModel.updateFact(category!!)
-            factViewModel.isProgressbarActive.observe(viewLifecycleOwner, {
-                when (it) {
-                    true -> binding.factLayoutId.factSwipeLayout.isRefreshing = true
-                    false -> binding.factLayoutId.factSwipeLayout.isRefreshing = false
-                }
-            })
+            binding.factLayoutId.factSwipeLayout.isRefreshing = false
+            viewModel.updateFact(category!!)
         }
         return binding.root
     }
@@ -118,7 +113,7 @@ class FactFragment : Fragment() {
         binding.factLayoutId.tvFactCategory.text = category.capitalize()
         binding.factLayoutId.tvFactText.text = fact.fact
         binding.factLayoutId.tvFactDate.text = getDateString(fact.date)
-        factViewModel.currentFact = fact
+        viewModel.currentFact = fact
     }
 
     private fun showErrorState(error: String) {
@@ -127,15 +122,8 @@ class FactFragment : Fragment() {
         binding.factLayoutId.factErrorLayout isNeedToShow true
         binding.layoutFactFragmentShare.isClickable = false
         binding.factLayoutId.factSwipeLayout.isRefreshing = false
-        factViewModel.currentFact = null
+        viewModel.currentFact = null
         binding.factLayoutId.tvFactError.text = error
-    }
-
-    private fun shareFact(fact: String) {
-        startActivity(
-            Screens.ShareScreen(fact + getString(R.string.google_play_link))
-                .getActivityIntent(requireContext())
-        )
     }
 
     override fun onDestroy() {

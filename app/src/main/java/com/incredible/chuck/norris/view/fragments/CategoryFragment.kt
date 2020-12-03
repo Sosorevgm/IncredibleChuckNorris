@@ -10,14 +10,11 @@ import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
 import com.incredible.chuck.norris.databinding.FragmentCategoryBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
-import com.incredible.chuck.norris.navigation.Screens
 import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
 import com.incredible.chuck.norris.view.adapters.CategoryClickListener
 import com.incredible.chuck.norris.view.adapters.CategoryRVAdapter
 import com.incredible.chuck.norris.view_model.CategoryViewModel
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.terrakok.cicerone.Router
 
 class CategoryFragment : Fragment(), CategoryClickListener {
 
@@ -26,7 +23,6 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     private val viewModel: CategoryViewModel by viewModel()
-    private val router: Router by inject()
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
@@ -107,7 +103,7 @@ class CategoryFragment : Fragment(), CategoryClickListener {
     }
 
     override fun onFactClick(category: String) {
-        router.navigateTo(Screens.FactScreen(category))
+        viewModel.factClicked(category)
     }
 
     override fun onDestroy() {

@@ -3,15 +3,15 @@ package com.incredible.chuck.norris.view.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.incredible.chuck.norris.R
-import com.incredible.chuck.norris.navigation.Screens
+import com.incredible.chuck.norris.view_model.MainViewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 class MainActivity : AppCompatActivity() {
 
-    private val router: Router by inject()
+    private val viewModel: MainViewModel by viewModel()
     private val navigatorHolder: NavigatorHolder by inject()
     private lateinit var navigator: SupportAppNavigator
 
@@ -20,11 +20,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigator = SupportAppNavigator(this, R.id.main_fragment_container)
-        router.newRootScreen(Screens.CategoriesScreen())
+        viewModel.setRootScreen()
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
+    override fun onResume() {
+        super.onResume()
         navigatorHolder.setNavigator(navigator)
     }
 
