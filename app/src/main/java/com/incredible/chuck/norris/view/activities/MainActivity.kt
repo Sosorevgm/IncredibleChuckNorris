@@ -3,6 +3,7 @@ package com.incredible.chuck.norris.view.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.incredible.chuck.norris.R
+import com.incredible.chuck.norris.navigation.CustomAppNavigator
 import com.incredible.chuck.norris.view_model.MainViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +20,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigator = SupportAppNavigator(this, R.id.main_fragment_container)
+//        navigator = SupportAppNavigator(this, R.id.main_fragment_container)
+        navigator = CustomAppNavigator(this, R.id.main_fragment_container)
+
+        val ft = supportFragmentManager.beginTransaction()
+
         viewModel.setRootScreen()
     }
 
