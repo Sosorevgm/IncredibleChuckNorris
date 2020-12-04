@@ -19,12 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        navigator = SupportAppNavigator(this, R.id.main_fragment_container)
         navigator = CustomAppNavigator(this, R.id.main_fragment_container)
-
-        val ft = supportFragmentManager.beginTransaction()
-
         viewModel.setRootScreen()
     }
 
