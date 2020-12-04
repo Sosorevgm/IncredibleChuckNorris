@@ -7,8 +7,13 @@ class MainViewModel(
     private val router: Router
 ) : BaseViewModel() {
 
+    private var rootScreenInstalled = false
+
     fun setRootScreen() {
-        router.newRootScreen(Screens.CategoriesScreen())
+        if (!rootScreenInstalled) {
+            router.newRootScreen(Screens.CategoriesScreen())
+            rootScreenInstalled = true
+        }
     }
 
     override fun handleError(error: Throwable) {
