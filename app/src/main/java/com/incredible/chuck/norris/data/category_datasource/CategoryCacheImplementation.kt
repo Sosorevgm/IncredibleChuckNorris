@@ -1,8 +1,10 @@
 package com.incredible.chuck.norris.data.category_datasource
 
+import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.data.room.CategoryEntity
 import com.incredible.chuck.norris.data.screen_state.CategoryScreenState
+import com.incredible.chuck.norris.data.view.ErrorModel
 
 class CategoryCacheImplementation(
     private val room: AppDatabase
@@ -13,7 +15,14 @@ class CategoryCacheImplementation(
         return if (categories.isNotEmpty()) {
             CategoryScreenState.SuccessFromCache(categories)
         } else {
-            CategoryScreenState.ErrorCacheIsEmpty("Categories cache is empty. Try to find a connection.")
+            CategoryScreenState.Error(
+                ErrorModel(
+                    titleResId = R.string.categories_from_cache_is_empty,
+                    buttonTextResId = R.string.retry,
+                    image = R.drawable.chuck_main_icon,
+                    imageAnimation = R.anim.chuck_exception_icon_rotate
+                )
+            )
         }
     }
 
