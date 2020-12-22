@@ -30,7 +30,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/shimmer_iv_fact_icon"
                     style="@style/FactImageStyle"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="28dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toTopOf="parent"
                     />
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_category"
                     />
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text_one"
                     />
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text_two"
                     />
