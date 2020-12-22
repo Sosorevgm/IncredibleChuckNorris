@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.incredible.chuck.norris.data.view.ErrorViewWidget
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/error_widget_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/error_widget_image"
+        style="@style/ExceptionImageStyle"
+        app:layout_constraintBottom_toTopOf="@+id/error_widget_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/error_widget_title"
+        style="@style/ErrorTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:paddingStart="88dp"
+        android:paddingEnd="88dp"
+        app:layout_constraintBottom_toTopOf="@+id/error_widget_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="This is error state title. This is error state title. "
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/error_widget_message"
+        style="@style/ErrorMessageStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/error_widget_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="This is some big error message with description. This is some big error message with description. This is some big error message with description."
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/error_widget_button"
+        style="@style/ErrorButtonStyle"
+        android:layout_width="180dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/error_widget_button_text"
+            style="@style/ErrorButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Error button"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.incredible.chuck.norris.data.view.ErrorViewWidget>

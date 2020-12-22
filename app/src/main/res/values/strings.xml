@@ -3,9 +3,12 @@
     <!-- Main app strings -->
 
     <string name="app_name">ICN</string>
+    <string name="retry">Retry</string>
     <string name="categories">Categories</string>
     <string name="categories_from_cache">No connection. Show categories from cache.</string>
+    <string name="categories_from_cache_is_empty">Categories cache is empty. Try to find a connection.</string>
     <string name="facts_from_cache">No connection. Show facts from cache.</string>
+    <string name="facts_from_cache_is_empty">Cache from this category is empty. Try to find a connection.</string>
     <string name="try_again">Try again</string>
     <string name="google_play_link">\n\nLearn more about Chuck Norris. Download the app now!\nhttp://play.google.com/store/apps/details?id=com.incredible.chuck.norris</string>
 
