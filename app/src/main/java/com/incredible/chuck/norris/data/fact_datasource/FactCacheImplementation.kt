@@ -1,9 +1,11 @@
 package com.incredible.chuck.norris.data.fact_datasource
 
+import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.data.room.FactEntity
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
+import com.incredible.chuck.norris.data.view.ErrorModel
 
 class FactCacheImplementation(
     private val room: AppDatabase
@@ -23,7 +25,12 @@ class FactCacheImplementation(
             )
             FactScreenState.SuccessFromCache(fact)
         } else {
-            FactScreenState.ErrorCacheIsEmpty("Cache from $category category is empty. Try to find a connection")
+            FactScreenState.Error(
+                ErrorModel(
+                    messageResId = R.string.facts_from_cache_is_empty,
+                    buttonTextResId = R.string.retry
+                )
+            )
         }
     }
 

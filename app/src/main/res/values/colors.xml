@@ -3,6 +3,7 @@
     <color name="colorPrimary">#C18E60</color>
     <color name="colorPrimaryDark">#C18E60</color>
     <color name="colorAccent">#C18E60</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="silver">#C0C0C0</color>
     <color name="background_color">#dddddd</color>

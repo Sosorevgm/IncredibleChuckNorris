@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.repository.FactRepository
 import com.incredible.chuck.norris.data.screen_state.FactScreenState
+import com.incredible.chuck.norris.data.view.ErrorModel
 import com.incredible.chuck.norris.navigation.Screens
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,9 +23,11 @@ class FactViewModel(
         MutableLiveData<FactScreenState>()
     }
 
+    var currentCategory: String = ""
     var currentFact: FactModel? = null
 
     fun fetchData(category: String) {
+        currentCategory = category
         screenState.value = FactScreenState.Loading
         coroutineScope.launch {
             delay(FACT_DELAY)
@@ -39,6 +42,7 @@ class FactViewModel(
     }
 
     fun updateFact(category: String) {
+        currentCategory = category
         screenState.value = FactScreenState.Loading
 
         coroutineScope.launch {
@@ -58,6 +62,7 @@ class FactViewModel(
     }
 
     override fun handleError(error: Throwable) {
-        screenState.value = FactScreenState.Error(error.message ?: "Unexpected error")
+        screenState.value =
+            FactScreenState.Error(ErrorModel(message = error.message ?: "Unexpected error"))
     }
 }

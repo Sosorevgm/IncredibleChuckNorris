@@ -9,14 +9,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_fact_layout"
+            android:id="@+id/fact_loading_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
@@ -30,7 +30,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/shimmer_iv_fact_icon"
                     style="@style/FactImageStyle"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="28dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toTopOf="parent"
                     />
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_category"
                     />
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text_one"
                     />
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/shimmer_view_background"
+                    android:background="@drawable/background_shimmer_view"
                     app:layout_constraintStart_toEndOf="@+id/shimmer_iv_fact_icon"
                     app:layout_constraintTop_toBottomOf="@+id/shimmer_tv_fact_text_two"
                     />
@@ -82,7 +82,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fact_main_layout"
+            android:id="@+id/fact_success_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
@@ -138,27 +138,9 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
             android:id="@+id/fact_error_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            >
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_fact_error"
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@color/date_text_color"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="This is error text view"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+            layout="@layout/error_view_layout"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
