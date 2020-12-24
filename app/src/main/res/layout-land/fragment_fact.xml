@@ -121,7 +121,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/shimmer_tv_fact_text_one"
-                        android:layout_width="260dp"
+                        android:layout_width="460dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="6dp"
@@ -132,7 +132,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/shimmer_tv_fact_text_two"
-                        android:layout_width="260dp"
+                        android:layout_width="460dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="6dp"
