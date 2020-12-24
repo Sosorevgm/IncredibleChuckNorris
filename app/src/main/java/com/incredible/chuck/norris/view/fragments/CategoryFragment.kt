@@ -31,12 +31,12 @@ class CategoryFragment : BaseFragment(), CategoryClickListener, View.OnClickList
     ): View {
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
         adapter = CategoryRVAdapter(listOf(), this)
-        binding.categoryLayoutId.rvCategoryFragment.adapter = adapter
+        binding.rvCategoryFragment.adapter = adapter
 
         initFragmentLayout(
-            binding.categoryLayoutId.categorySuccessLayout,
-            binding.categoryLayoutId.progressBarMain,
-            binding.categoryLayoutId.categoryErrorLayout.errorWidgetLayout
+            binding.categorySuccessLayout,
+            binding.progressBarMain,
+            binding.categoryErrorLayout.errorWidgetLayout
         )
 
         if (viewModel.currentCategories != null) {
@@ -58,8 +58,8 @@ class CategoryFragment : BaseFragment(), CategoryClickListener, View.OnClickList
                 }
             })
 
-        binding.categoryLayoutId.categoriesSwipeLayout.setOnRefreshListener {
-            binding.categoryLayoutId.categoriesSwipeLayout.isRefreshing = false
+        binding.categoriesSwipeLayout.setOnRefreshListener {
+            binding.categoriesSwipeLayout.isRefreshing = false
             viewModel.fetchData()
         }
         return binding.root

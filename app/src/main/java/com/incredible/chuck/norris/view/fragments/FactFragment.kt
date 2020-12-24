@@ -19,6 +19,7 @@ import com.incredible.chuck.norris.view_model.FactViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.Router
+import java.util.*
 
 class FactFragment : BaseFragment(), View.OnClickListener {
 
@@ -45,9 +46,9 @@ class FactFragment : BaseFragment(), View.OnClickListener {
         _binding = FragmentFactBinding.inflate(inflater, container, false)
 
         initFragmentLayout(
-            binding.factLayoutId.factSuccessLayout,
-            binding.factLayoutId.factLoadingLayout,
-            binding.factLayoutId.factErrorLayout.errorWidgetLayout
+            binding.factSuccessLayout,
+            binding.factLoadingLayout,
+            binding.factErrorLayout.errorWidgetLayout
         )
 
         category = arguments?.getString(CATEGORY)
@@ -56,7 +57,7 @@ class FactFragment : BaseFragment(), View.OnClickListener {
             showSuccess(viewModel.currentFact!!)
         } else {
             category?.let {
-                binding.factLayoutId.tvFactCategory.text = it
+                binding.tvFactCategory.text = it
                 viewModel.fetchData(it)
             }
         }
@@ -88,8 +89,8 @@ class FactFragment : BaseFragment(), View.OnClickListener {
             }
         }
 
-        binding.factLayoutId.factSwipeLayout.setOnRefreshListener {
-            binding.factLayoutId.factSwipeLayout.isRefreshing = false
+        binding.factSwipeLayout.setOnRefreshListener {
+            binding.factSwipeLayout.isRefreshing = false
             category?.let {
                 viewModel.updateFact(it)
             }
@@ -105,14 +106,14 @@ class FactFragment : BaseFragment(), View.OnClickListener {
             requireContext(),
             R.drawable.chuck_main_icon
         )?.let {
-            imageLoader.loadImageFromResources(it, binding.factLayoutId.ivFactIcon)
+            imageLoader.loadImageFromResources(it, binding.ivFactIcon)
         }
 
         val fact = data as FactModel
 
-        binding.factLayoutId.tvFactCategory.text = viewModel.currentCategory.capitalize()
-        binding.factLayoutId.tvFactText.text = fact.fact
-        binding.factLayoutId.tvFactDate.text = getDateString(fact.date)
+        binding.tvFactCategory.text = viewModel.currentCategory.capitalize(Locale.ROOT)
+        binding.tvFactText.text = fact.fact
+        binding.tvFactDate.text = getDateString(fact.date)
         viewModel.currentFact = fact
     }
 
@@ -124,7 +125,7 @@ class FactFragment : BaseFragment(), View.OnClickListener {
     override fun showError(errorModel: ErrorModel, errorListener: View.OnClickListener?) {
         super.showError(errorModel, errorListener)
         binding.layoutFactFragmentShare.isClickable = false
-        binding.factLayoutId.factSwipeLayout.isRefreshing = false
+        binding.factSwipeLayout.isRefreshing = false
         viewModel.currentCategory = ""
         viewModel.currentFact = null
     }
