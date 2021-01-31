@@ -2,10 +2,10 @@ package com.incredible.chuck.norris.navigation
 
 import android.content.Context
 import android.content.Intent
-import com.incredible.chuck.norris.view.activities.MainActivity
-import com.incredible.chuck.norris.view.activities.OnboardingActivity
-import com.incredible.chuck.norris.view.fragments.CategoryFragment
-import com.incredible.chuck.norris.view.fragments.FactFragment
+import com.incredible.chuck.norris.features.main.MainActivity
+import com.incredible.chuck.norris.features.onboarding_feature.OnboardingActivity
+import com.incredible.chuck.norris.features.categories_feature.CategoryFragment
+import com.incredible.chuck.norris.features.fact_feature.FactFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
