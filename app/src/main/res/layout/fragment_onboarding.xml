@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.OnboardingFragment"
+    tools:context=".features.onboarding_feature.OnboardingFragment"
     >
 
     <androidx.appcompat.widget.AppCompatImageView

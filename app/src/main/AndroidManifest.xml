@@ -14,11 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activities.OnboardingActivity"
+            android:name=".features.onboarding_feature.OnboardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/OnboardingActivityTheme" />
         <activity
-            android:name=".view.activities.SplashActivity"
+            android:name=".features.splash_feature.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activities.MainActivity" />
+        <activity android:name=".features.main.MainActivity" />
     </application>
 
 </manifest>
