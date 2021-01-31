@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.FactFragment"
+    tools:context=".features.fact_feature.FactFragment"
     >
 
     <com.google.android.material.appbar.AppBarLayout
