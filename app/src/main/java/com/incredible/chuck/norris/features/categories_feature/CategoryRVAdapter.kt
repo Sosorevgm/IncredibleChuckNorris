@@ -10,8 +10,12 @@ import com.incredible.chuck.norris.databinding.CategoryCardViewBinding
 
 class CategoryRVAdapter(
     private var categoryList: List<String>,
-    private val listener: CategoryClickListener
+    private val listener: IListener
 ) : RecyclerView.Adapter<CategoryRVAdapter.ViewHolder>() {
+
+    interface IListener {
+        fun onCategoryClick(category: String)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -33,7 +37,7 @@ class CategoryRVAdapter(
 
     inner class ViewHolder(
         val view: View,
-        private val listener: CategoryClickListener
+        private val listener: IListener
     ) : RecyclerView.ViewHolder(view) {
 
         private val binding = CategoryCardViewBinding.bind(view)
@@ -41,7 +45,7 @@ class CategoryRVAdapter(
         fun bind(category: String) {
             binding.tvCategoryText.text = category.capitalize()
             binding.cvCategoryRoot.setOnClickListener {
-                listener.onFactClick(category)
+                listener.onCategoryClick(category)
             }
         }
     }

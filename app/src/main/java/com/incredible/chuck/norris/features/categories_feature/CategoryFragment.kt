@@ -9,7 +9,7 @@ import com.incredible.chuck.norris.databinding.FragmentCategoryBinding
 import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CategoryFragment : BaseFragment(), CategoryClickListener, View.OnClickListener {
+class CategoryFragment : BaseFragment(), CategoryRVAdapter.IListener, View.OnClickListener {
 
     companion object {
         fun getInstance() = CategoryFragment()
@@ -67,7 +67,7 @@ class CategoryFragment : BaseFragment(), CategoryClickListener, View.OnClickList
         adapter.updateCategoryList(categories)
     }
 
-    override fun onFactClick(category: String) {
+    override fun onCategoryClick(category: String) {
         viewModel.factClicked(category)
     }
 
