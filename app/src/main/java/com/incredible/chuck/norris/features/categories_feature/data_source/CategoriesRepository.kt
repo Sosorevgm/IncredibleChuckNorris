@@ -4,8 +4,9 @@ import com.incredible.chuck.norris.features.categories_feature.data_source.Categ
 import com.incredible.chuck.norris.features.categories_feature.data_source.CategoryRetrofitImplementation
 import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.features.categories_feature.CategoryScreenState
+import javax.inject.Inject
 
-class CategoriesRepository(
+class CategoriesRepository @Inject constructor(
     private val network: NetworkStatus,
     private val retrofit: CategoryRetrofitImplementation,
     private val cache: CategoryCacheImplementation

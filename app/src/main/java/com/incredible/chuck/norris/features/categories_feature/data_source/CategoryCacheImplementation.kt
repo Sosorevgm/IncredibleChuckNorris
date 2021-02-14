@@ -5,8 +5,9 @@ import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.data.room.CategoryEntity
 import com.incredible.chuck.norris.features.categories_feature.CategoryScreenState
 import com.incredible.chuck.norris.common.ErrorModel
+import javax.inject.Inject
 
-class CategoryCacheImplementation(
+class CategoryCacheImplementation @Inject constructor(
     private val room: AppDatabase
 ) : CategoryDataSource<CategoryScreenState> {
 

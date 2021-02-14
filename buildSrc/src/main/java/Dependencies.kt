@@ -24,6 +24,8 @@ object Versions {
     const val koin_fragment = "2.1.6"
     const val koin_ext = "2.1.6"
 
+    const val dagger = "2.31.2"
+
     const val room_version = "2.2.5"
 
     const val glide = "4.11.0"
@@ -96,6 +98,14 @@ object Koin {
     const val view_model = "org.koin:koin-androidx-viewmodel:${Versions.koin_view_model}"
     const val fragment = "org.koin:koin-androidx-fragment:${Versions.koin_fragment}"
     const val ext = "org.koin:koin-androidx-ext:${Versions.koin_ext}"
+}
+
+object Dagger {
+    const val core = "com.google.dagger:dagger:${Versions.dagger}"
+    const val android = "com.google.dagger:dagger-android:${Versions.dagger}"
+    const val android_support = "com.google.dagger:dagger-android-support:${Versions.dagger}"
+    const val processor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
+    const val compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 }
 
 object Room {

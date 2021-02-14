@@ -2,17 +2,29 @@ package com.incredible.chuck.norris.features.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.incredible.chuck.norris.R
+import com.incredible.chuck.norris.dagger.factory.ViewModelProviderFactory
 import com.incredible.chuck.norris.navigation.CustomAppNavigator
+import dagger.android.support.DaggerAppCompatActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModel()
-    private val navigatorHolder: NavigatorHolder by inject()
+    @Inject
+    lateinit var factory: ViewModelProviderFactory
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, factory).get(MainViewModel::class.java)
+    }
+
     private lateinit var navigator: SupportAppNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {

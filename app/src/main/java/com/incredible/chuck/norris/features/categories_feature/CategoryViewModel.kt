@@ -7,8 +7,9 @@ import com.incredible.chuck.norris.common.ErrorModel
 import com.incredible.chuck.norris.navigation.Screens
 import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class CategoryViewModel(
+class CategoryViewModel @Inject constructor(
     private val repository: CategoriesRepository,
     private val router: Router
 ) : BaseViewModel() {

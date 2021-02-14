@@ -6,8 +6,9 @@ import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.features.fact_feature.FactScreenState
 import com.sosorevgm.profanityfilter.ProfanityFilter
+import javax.inject.Inject
 
-class FactRepository(
+class FactRepository @Inject constructor(
     private val network: NetworkStatus,
     private val retrofit: FactRetrofitImplementation,
     private val cache: FactCacheImplementation,

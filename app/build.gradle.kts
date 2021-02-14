@@ -63,6 +63,12 @@ dependencies {
     implementation(Koin.fragment)
     implementation(Koin.ext)
 
+    implementation(Dagger.core)
+    implementation(Dagger.android)
+    implementation(Dagger.android_support)
+    kapt(Dagger.processor)
+    kapt(Dagger.compiler)
+
     implementation(Room.runtime)
     implementation(Room.ktx)
     kapt(Room.kapt)

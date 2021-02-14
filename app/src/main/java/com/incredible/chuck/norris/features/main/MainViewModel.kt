@@ -3,8 +3,9 @@ package com.incredible.chuck.norris.features.main
 import com.incredible.chuck.norris.common.BaseViewModel
 import com.incredible.chuck.norris.navigation.Screens
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val router: Router
 ) : BaseViewModel() {
 

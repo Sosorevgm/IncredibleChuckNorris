@@ -9,8 +9,9 @@ import com.incredible.chuck.norris.navigation.Screens
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class FactViewModel(
+class FactViewModel @Inject constructor(
     private val repository: FactRepository,
     private val router: Router
 ) : BaseViewModel() {
