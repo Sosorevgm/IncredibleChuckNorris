@@ -1,18 +1,26 @@
 package com.incredible.chuck.norris.features.onboarding_feature
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.databinding.ActivityOnboardingBinding
 import com.incredible.chuck.norris.extensions.isNeedToShow
 import com.incredible.chuck.norris.navigation.Screens
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class OnboardingActivity : AppCompatActivity() {
 
-    private val viewModel: OnboardingViewModel by viewModel()
+class OnboardingActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+            .get(OnboardingViewModel::class.java)
+    }
 
     private lateinit var binding: ActivityOnboardingBinding
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.incredible.chuck.norris.R
 import com.incredible.chuck.norris.dagger.factory.ViewModelProviderFactory
+import com.incredible.chuck.norris.features.splash_feature.SplashViewModel
 import com.incredible.chuck.norris.navigation.CustomAppNavigator
 import dagger.android.support.DaggerAppCompatActivity
 import org.koin.android.ext.android.inject
@@ -16,13 +17,14 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var factory: ViewModelProviderFactory
-
-    @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val viewModel by lazy {
-        ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory)
+            .get(MainViewModel::class.java)
     }
 
     private lateinit var navigator: SupportAppNavigator
