@@ -17,11 +17,13 @@ import javax.inject.Singleton
         AppModule::class,
         NavigationModule::class,
         PreferencesModule::class,
+        ImageLoaderModule::class,
         UtilsModule::class,
         DatabaseModule::class,
         NetworkModule::class,
         RetrofitModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        ViewModelsModule::class
     ]
 )
 interface AppComponent : AndroidInjector<IncredibleChuckNorrisApp> {

@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.incredible.chuck.norris.common.BaseFragment
 import com.incredible.chuck.norris.databinding.FragmentCategoryBinding
 import com.incredible.chuck.norris.utils.getSnackBarCategoriesFromCache
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class CategoryFragment : BaseFragment(), CategoryRVAdapter.IListener, View.OnClickListener {
 
@@ -15,7 +16,13 @@ class CategoryFragment : BaseFragment(), CategoryRVAdapter.IListener, View.OnCli
         fun getInstance() = CategoryFragment()
     }
 
-    private val viewModel: CategoryViewModel by viewModel()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+            .get(CategoryViewModel::class.java)
+    }
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!

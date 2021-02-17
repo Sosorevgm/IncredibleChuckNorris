@@ -9,24 +9,15 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBuildersModule {
 
-    @ContributesAndroidInjector(
-        modules = [
-            ViewModelsModule::class
-        ]
-    )
+    @ContributesAndroidInjector
     abstract fun contributeSplashActivity(): SplashActivity
 
-    @ContributesAndroidInjector(
-        modules = [
-            ViewModelsModule::class
-        ]
-    )
+    @ContributesAndroidInjector
     abstract fun contributeOnboardingActivity(): OnboardingActivity
 
     @ContributesAndroidInjector(
         modules = [
-            FragmentBuildersModule::class,
-            ViewModelsModule::class
+            FragmentBuildersModule::class
         ]
     )
     abstract fun contributeMainActivity(): MainActivity

@@ -19,11 +19,6 @@ object Versions {
 
     const val logging_interceptor = "4.9.0"
 
-    const val koin_android = "2.1.6"
-    const val koin_view_model = "2.1.6"
-    const val koin_fragment = "2.1.6"
-    const val koin_ext = "2.1.6"
-
     const val dagger = "2.31.2"
 
     const val room_version = "2.2.5"
@@ -91,13 +86,6 @@ object Retrofit {
 
 object Okhttp {
     const val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
-}
-
-object Koin {
-    const val android = "org.koin:koin-androidx-scope:${Versions.koin_android}"
-    const val view_model = "org.koin:koin-androidx-viewmodel:${Versions.koin_view_model}"
-    const val fragment = "org.koin:koin-androidx-fragment:${Versions.koin_fragment}"
-    const val ext = "org.koin:koin-androidx-ext:${Versions.koin_ext}"
 }
 
 object Dagger {

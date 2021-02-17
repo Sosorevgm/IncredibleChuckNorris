@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.incredible.chuck.norris.R
-import com.incredible.chuck.norris.data.image_datasource.ImageLoader
-import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.common.BaseFragment
 import com.incredible.chuck.norris.common.ErrorModel
+import com.incredible.chuck.norris.data.image_datasource.ImageLoader
+import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.databinding.FragmentFactBinding
 import com.incredible.chuck.norris.utils.Constants.CATEGORY
 import com.incredible.chuck.norris.utils.getDateString
 import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.Router
 import java.util.*
+import javax.inject.Inject
 
 class FactFragment : BaseFragment(), View.OnClickListener {
 
@@ -29,9 +29,19 @@ class FactFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private val viewModel: FactViewModel by viewModel()
-    private val imageLoader: ImageLoader by inject()
-    private val router: Router by inject()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+            .get(FactViewModel::class.java)
+    }
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
+    @Inject
+    lateinit var router: Router
 
     private var _binding: FragmentFactBinding? = null
     private val binding get() = _binding!!

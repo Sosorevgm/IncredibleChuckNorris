@@ -2,13 +2,14 @@ package com.incredible.chuck.norris.features.fact_feature
 
 import androidx.lifecycle.MutableLiveData
 import com.incredible.chuck.norris.common.BaseViewModel
+import com.incredible.chuck.norris.common.ErrorModel
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.features.fact_feature.data_source.FactRepository
-import com.incredible.chuck.norris.common.ErrorModel
 import com.incredible.chuck.norris.navigation.Screens
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 class FactViewModel @Inject constructor(
