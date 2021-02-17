@@ -1,10 +1,10 @@
 package com.incredible.chuck.norris.common
 
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.incredible.chuck.norris.extensions.isNeedToShow
+import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : DaggerFragment() {
 
     private lateinit var successLayout: View
     private lateinit var loadingProgressBar: View

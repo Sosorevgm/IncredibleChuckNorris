@@ -1,13 +1,20 @@
 package com.incredible.chuck.norris.features.splash_feature
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.incredible.chuck.norris.navigation.Screens
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : DaggerAppCompatActivity() {
 
-    private val viewModel: SplashViewModel by viewModel()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+            .get(SplashViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

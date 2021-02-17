@@ -1,21 +1,19 @@
 package com.incredible.chuck.norris.application
 
-import android.app.Application
-import com.incredible.chuck.norris.di.*
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.incredible.chuck.norris.dagger.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import timber.log.Timber
 
-class IncredibleChuckNorrisApp : Application() {
+class IncredibleChuckNorrisApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+    }
 
-        startKoin {
-            androidContext(this@IncredibleChuckNorrisApp)
-            modules(listOf(preferences, repositories, utils, viewModels, navigation))
-        }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.factory().create(this)
     }
 }
