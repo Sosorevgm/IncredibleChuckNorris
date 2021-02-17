@@ -13,10 +13,7 @@
         android:roundIcon="@mipmap/chuck_white_background_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".features.onboarding_feature.OnboardingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/OnboardingActivityTheme" />
+
         <activity
             android:name=".features.splash_feature.SplashActivity"
             android:screenOrientation="portrait"
@@ -27,7 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".features.onboarding_feature.OnboardingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OnboardingActivityTheme" />
+
         <activity android:name=".features.main.MainActivity" />
     </application>
-
 </manifest>

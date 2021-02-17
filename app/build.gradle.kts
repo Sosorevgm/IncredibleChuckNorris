@@ -5,6 +5,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -77,10 +78,10 @@ dependencies {
 
     implementation(Filter.profanity_filter)
 
-    implementation(Firebase.analytics)
-    implementation(Firebase.crashlytics)
-    implementation(Firebase.analytics_kotlin)
-    implementation(Firebase.crashlytics_kotlin)
+    implementation(platform(Firebase.bom))
+    implementation(Firebase.analytics_ktx)
+    implementation(Firebase.crashlytics_ktx)
+    implementation(Firebase.performance_ktx)
 
     testImplementation(TestImpl.junit)
     androidTestImplementation(TestImpl.test_ext_JUnit)

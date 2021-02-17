@@ -1,7 +1,5 @@
 package com.incredible.chuck.norris.features.fact_feature.data_source
 
-import com.incredible.chuck.norris.features.fact_feature.data_source.FactCacheImplementation
-import com.incredible.chuck.norris.features.fact_feature.data_source.FactRetrofitImplementation
 import com.incredible.chuck.norris.data.models.FactModel
 import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.features.fact_feature.FactScreenState

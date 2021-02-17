@@ -3,6 +3,7 @@ package com.incredible.chuck.norris.dagger.modules
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import javax.inject.Singleton
 
@@ -15,9 +16,9 @@ class NavigationModule {
 
     @Singleton
     @Provides
-    fun providesCiceroneHolder(cicerone: Cicerone<Router>) = cicerone.navigatorHolder
+    fun providesCiceroneHolder(cicerone: Cicerone<Router>): NavigatorHolder = cicerone.navigatorHolder
 
     @Singleton
     @Provides
-    fun providesCiceroneRouter(cicerone: Cicerone<Router>) = cicerone.router
+    fun providesCiceroneRouter(cicerone: Cicerone<Router>): Router = cicerone.router
 }

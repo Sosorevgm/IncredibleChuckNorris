@@ -1,15 +1,15 @@
 package com.incredible.chuck.norris.dagger.modules
 
-import android.content.Context
 import com.incredible.chuck.norris.data.network.AndroidNetworkStatus
+import com.incredible.chuck.norris.data.network.NetworkStatus
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+abstract class NetworkModule {
 
     @Singleton
-    @Provides
-    fun providesNetworkStatus(context: Context) = AndroidNetworkStatus(context)
+    @Binds
+    abstract fun providesNetworkStatus(status: AndroidNetworkStatus): NetworkStatus
 }
