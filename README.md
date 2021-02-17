@@ -9,7 +9,7 @@ Stack:
 - MVVM
 - kotlin
 - android architecture components
-- koin
+- dagger 2
 - coroutines
 - retrofit
 - room
