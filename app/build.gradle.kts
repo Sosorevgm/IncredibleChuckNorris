@@ -58,10 +58,11 @@ dependencies {
     implementation(Retrofit.coroutines_adapter)
     implementation(Okhttp.logging_interceptor)
 
-    implementation(Koin.android)
-    implementation(Koin.view_model)
-    implementation(Koin.fragment)
-    implementation(Koin.ext)
+    implementation(Dagger.core)
+    implementation(Dagger.android)
+    implementation(Dagger.android_support)
+    kapt(Dagger.processor)
+    kapt(Dagger.compiler)
 
     implementation(Room.runtime)
     implementation(Room.ktx)

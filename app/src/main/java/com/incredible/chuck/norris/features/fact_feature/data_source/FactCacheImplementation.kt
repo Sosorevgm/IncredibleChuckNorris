@@ -6,8 +6,9 @@ import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.data.room.FactEntity
 import com.incredible.chuck.norris.features.fact_feature.FactScreenState
 import com.incredible.chuck.norris.common.ErrorModel
+import javax.inject.Inject
 
-class FactCacheImplementation(
+class FactCacheImplementation @Inject constructor(
     private val room: AppDatabase
 ) {
 

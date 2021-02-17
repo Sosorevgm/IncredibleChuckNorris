@@ -6,8 +6,9 @@ import android.net.Network
 import android.net.NetworkRequest
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AndroidNetworkStatus(
+class AndroidNetworkStatus @Inject constructor(
     context: Context
 ) : NetworkStatus() {
 
