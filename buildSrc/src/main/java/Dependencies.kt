@@ -32,15 +32,11 @@ object Versions {
 
     const val profanity_filter = "1.0.0"
 
-    const val firebase_analytics = "17.5.0"
-    const val firebase_crashlytics = "17.2.1"
-    const val firebase_kotlin_analytics = "17.5.0"
-    const val firebase_kotlin_crashlytics = "17.2.1"
+    const val firebase_bom = "26.5.0"
 
     const val jUnit = "4.12"
     const val text_ext_JUnit = "1.1.1"
     const val espresso_core = "3.2.0"
-
 }
 
 object Config {
@@ -52,8 +48,8 @@ object Config {
 }
 
 object Releases {
-    const val version_code = 8
-    const val version_name = "1.6"
+    const val version_code = 9
+    const val version_name = "1.7"
 }
 
 object Kotlin {
@@ -63,8 +59,10 @@ object Kotlin {
 
 object Design {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
-    const val constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
-    const val swipe_to_refresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_to_refresh}"
+    const val constraint_layout =
+        "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
+    const val swipe_to_refresh =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_to_refresh}"
     const val view_pager_2 = "androidx.viewpager2:viewpager2:${Versions.view_pager_2}"
     const val material = "com.google.android.material:material:${Versions.material}"
 }
@@ -75,17 +73,21 @@ object Navigation {
 
 object Coroutines {
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines_core}"
-    const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_android}"
+    const val android =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_android}"
 }
 
 object Retrofit {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val gson_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit_gson_converter}"
-    const val coroutines_adapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofit_coroutines_adapter}"
+    const val gson_converter =
+        "com.squareup.retrofit2:converter-gson:${Versions.retrofit_gson_converter}"
+    const val coroutines_adapter =
+        "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofit_coroutines_adapter}"
 }
 
 object Okhttp {
-    const val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
+    const val logging_interceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
 }
 
 object Dagger {
@@ -116,14 +118,18 @@ object Shimmer {
 }
 
 object Filter {
-    const val profanity_filter = "com.sosorevgm.profanityfilter:profanityfilter:${Versions.profanity_filter}"
+    const val profanity_filter =
+        "com.sosorevgm.profanityfilter:profanityfilter:${Versions.profanity_filter}"
 }
 
 object Firebase {
-    const val analytics = "com.google.firebase:firebase-analytics:${Versions.firebase_analytics}"
-    const val crashlytics = "com.google.firebase:firebase-crashlytics:${Versions.firebase_crashlytics}"
-    const val analytics_kotlin = "com.google.firebase:firebase-analytics-ktx:${Versions.firebase_kotlin_analytics}"
-    const val crashlytics_kotlin = "com.google.firebase:firebase-crashlytics-ktx:${Versions.firebase_kotlin_crashlytics}"
+    const val bom = "com.google.firebase:firebase-bom:${Versions.firebase_bom}"
+    const val analytics_ktx =
+        "com.google.firebase:firebase-analytics-ktx"
+    const val crashlytics_ktx =
+        "com.google.firebase:firebase-crashlytics-ktx"
+    const val performance_ktx =
+        "com.google.firebase:firebase-perf-ktx"
 }
 
 object TestImpl {

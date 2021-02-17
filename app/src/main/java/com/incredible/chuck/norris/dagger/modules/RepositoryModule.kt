@@ -1,7 +1,7 @@
 package com.incredible.chuck.norris.dagger.modules
 
 import com.incredible.chuck.norris.data.api.ChuckNorrisApi
-import com.incredible.chuck.norris.data.network.AndroidNetworkStatus
+import com.incredible.chuck.norris.data.network.NetworkStatus
 import com.incredible.chuck.norris.data.room.AppDatabase
 import com.incredible.chuck.norris.features.categories_feature.data_source.CategoriesRepository
 import com.incredible.chuck.norris.features.categories_feature.data_source.CategoryCacheImplementation
@@ -40,7 +40,7 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun providesFactRepository(
-        networkStatus: AndroidNetworkStatus,
+        networkStatus: NetworkStatus,
         retrofit: FactRetrofitImplementation,
         cache: FactCacheImplementation,
         profanityFilter: ProfanityFilter
@@ -54,7 +54,7 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun providesCategoriesRepository(
-        networkStatus: AndroidNetworkStatus,
+        networkStatus: NetworkStatus,
         retrofit: CategoryRetrofitImplementation,
         cache: CategoryCacheImplementation
     ) = CategoriesRepository(
