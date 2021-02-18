@@ -18,4 +18,6 @@ Stack:
 - glide
 - facebook shimmer
 - firebase crashlytics
+- firebase performance
+- leak canary
 - timber
