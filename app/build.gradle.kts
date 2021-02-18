@@ -83,6 +83,8 @@ dependencies {
     implementation(Firebase.crashlytics_ktx)
     implementation(Firebase.performance_ktx)
 
+    debugImplementation(Leak.canary)
+    
     testImplementation(TestImpl.junit)
     androidTestImplementation(TestImpl.test_ext_JUnit)
     androidTestImplementation(TestImpl.espresso_core)
