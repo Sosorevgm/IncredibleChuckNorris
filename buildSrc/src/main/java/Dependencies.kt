@@ -34,6 +34,8 @@ object Versions {
 
     const val firebase_bom = "26.5.0"
 
+    const val canary = "2.6"
+
     const val jUnit = "4.12"
     const val text_ext_JUnit = "1.1.1"
     const val espresso_core = "3.2.0"
@@ -130,6 +132,10 @@ object Firebase {
         "com.google.firebase:firebase-crashlytics-ktx"
     const val performance_ktx =
         "com.google.firebase:firebase-perf-ktx"
+}
+
+object Leak {
+    const val canary = "com.squareup.leakcanary:leakcanary-android:${Versions.canary}"
 }
 
 object TestImpl {
