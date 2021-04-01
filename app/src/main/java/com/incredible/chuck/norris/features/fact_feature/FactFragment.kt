@@ -15,7 +15,6 @@ import com.incredible.chuck.norris.databinding.FragmentFactBinding
 import com.incredible.chuck.norris.utils.Constants.CATEGORY
 import com.incredible.chuck.norris.utils.getDateString
 import com.incredible.chuck.norris.utils.getSnackBarFactsFromCache
-import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
 
@@ -39,9 +38,6 @@ class FactFragment : BaseFragment(), View.OnClickListener {
 
     @Inject
     lateinit var imageLoader: ImageLoader
-
-    @Inject
-    lateinit var router: Router
 
     private var _binding: FragmentFactBinding? = null
     private val binding get() = _binding!!
@@ -86,11 +82,11 @@ class FactFragment : BaseFragment(), View.OnClickListener {
             }
         })
 
-        binding.layoutFactFragmentArrowBack.setOnClickListener {
-            router.exit()
+        binding.btnArrowBack.setOnClickListener {
+            viewModel.arrowBackClicked()
         }
 
-        binding.layoutFactFragmentShare.setOnClickListener {
+        binding.btnShareFact.setOnClickListener {
             viewModel.currentFact?.fact?.let {
                 val message = "$it ${getString(R.string.google_play_link)}"
                 viewModel.shareFact(message)
@@ -108,7 +104,7 @@ class FactFragment : BaseFragment(), View.OnClickListener {
 
     override fun showSuccess(data: Any) {
         super.showSuccess(data)
-        binding.layoutFactFragmentShare.isClickable = true
+        binding.btnShareFact.isClickable = true
 
         ContextCompat.getDrawable(
             requireContext(),
@@ -127,12 +123,12 @@ class FactFragment : BaseFragment(), View.OnClickListener {
 
     override fun showLoading() {
         super.showLoading()
-        binding.layoutFactFragmentShare.isClickable = false
+        binding.btnShareFact.isClickable = false
     }
 
     override fun showError(errorModel: ErrorModel, errorListener: View.OnClickListener?) {
         super.showError(errorModel, errorListener)
-        binding.layoutFactFragmentShare.isClickable = false
+        binding.btnShareFact.isClickable = false
         binding.factSwipeLayout.isRefreshing = false
         viewModel.currentCategory = ""
         viewModel.currentFact = null

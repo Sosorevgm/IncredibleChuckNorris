@@ -59,6 +59,10 @@ class FactViewModel @Inject constructor(
         }
     }
 
+    fun arrowBackClicked() {
+        router.exit()
+    }
+
     fun shareFact(shareMessage: String) {
         router.navigateTo(Screens.ShareScreen(shareMessage))
     }
