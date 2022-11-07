@@ -1,2 +1,4 @@
-include ':app'
 rootProject.name = "Incredible Chuck Norris"
+include ':app'
+include ':feature:onboarding'
+include ':platform:ui'

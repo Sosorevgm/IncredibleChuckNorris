@@ -11,7 +11,6 @@ import com.incredible.chuck.norris.navigation.Screens
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-
 class OnboardingActivity : DaggerAppCompatActivity() {
 
     @Inject
@@ -38,33 +37,33 @@ class OnboardingActivity : DaggerAppCompatActivity() {
         }.attach()
 
         binding.onboardintTabsLayout.addOnTabSelectedListener(object :
-            TabLayout.OnTabSelectedListener {
+                TabLayout.OnTabSelectedListener {
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.icon?.setTint(getColor(R.color.white))
-                when (tab?.position) {
-                    0 -> {
-                        binding.onboardingLayoutPrevious isNeedToShow false
-                        binding.onboardingTvNext.text = getString(R.string.onboarding_next)
-                    }
-                    1 -> {
-                        binding.onboardingLayoutPrevious isNeedToShow true
-                        binding.onboardingTvNext.text = getString(R.string.onboarding_next)
-                    }
-                    2 -> {
-                        binding.onboardingLayoutPrevious isNeedToShow true
-                        binding.onboardingTvNext.text = getString(R.string.onboarding_got_it)
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.icon?.setTint(getColor(R.color.white))
+                    when (tab?.position) {
+                        0 -> {
+                            binding.onboardingLayoutPrevious isNeedToShow false
+                            binding.onboardingTvNext.text = getString(R.string.onboarding_next)
+                        }
+                        1 -> {
+                            binding.onboardingLayoutPrevious isNeedToShow true
+                            binding.onboardingTvNext.text = getString(R.string.onboarding_next)
+                        }
+                        2 -> {
+                            binding.onboardingLayoutPrevious isNeedToShow true
+                            binding.onboardingTvNext.text = getString(R.string.onboarding_got_it)
+                        }
                     }
                 }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.icon?.setTint(getColor(R.color.silver))
-            }
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    tab?.icon?.setTint(getColor(R.color.silver))
+                }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+            })
 
         binding.onboardintTabsLayout.getTabAt(0)?.icon?.setTint(getColor(R.color.white))
 

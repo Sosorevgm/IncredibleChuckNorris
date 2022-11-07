@@ -54,6 +54,11 @@ object Releases {
     const val version_name = "1.8"
 }
 
+object Module {
+    const val ui = ":platform:ui"
+    const val onboarding = ":feature:onboarding"
+}
+
 object Kotlin {
     const val core = "androidx.core:core-ktx:${Versions.core}"
     const val std_lib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.std_lib}"

@@ -1,6 +1,5 @@
 package com.incredible.chuck.norris.dagger.modules
 
-import android.app.Application
 import android.content.Context
 import com.incredible.chuck.norris.data.image_datasource.GlideImageLoader
 import com.incredible.chuck.norris.data.network.AndroidNetworkStatus
@@ -13,7 +12,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesContext(application: Application): Context = application.applicationContext
+    fun providesContext(context: Context): Context = context
 
     @Singleton
     @Provides

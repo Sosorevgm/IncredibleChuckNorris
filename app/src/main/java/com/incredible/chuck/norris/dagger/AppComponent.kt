@@ -1,11 +1,14 @@
 package com.incredible.chuck.norris.dagger
 
-import android.app.Application
-import com.incredible.chuck.norris.application.IncredibleChuckNorrisApp
+import android.content.Context
 import com.incredible.chuck.norris.dagger.modules.*
+import com.incredible.chuck.norris.features.categories_feature.CategoryFragment
+import com.incredible.chuck.norris.features.fact_feature.FactFragment
+import com.incredible.chuck.norris.features.main.MainActivity
+import com.incredible.chuck.norris.features.onboarding_feature.OnboardingActivity
+import com.incredible.chuck.norris.features.splash_feature.SplashActivity
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
@@ -26,10 +29,16 @@ import javax.inject.Singleton
         ViewModelsModule::class
     ]
 )
-interface AppComponent : AndroidInjector<IncredibleChuckNorrisApp> {
+interface AppComponent {
+
+    fun inject(activity: SplashActivity)
+    fun inject(activity: OnboardingActivity)
+    fun inject(activity: MainActivity)
+    fun inject(fragment: FactFragment)
+    fun inject(fragment: CategoryFragment)
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance application: Application): AppComponent
+        fun create(@BindsInstance context: Context): AppComponent
     }
 }
